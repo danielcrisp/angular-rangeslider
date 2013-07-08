@@ -15,6 +15,8 @@ A basic slider with a range of 0 to 100:
 
 As the handles are moved the model values `min` and `max` will be updated in the parent controller.
 
+[Default settings](https://github.com/danielcrisp/angular-rangeslider/raw/master/screenshots/default.png)
+
 Options
 -------
 
