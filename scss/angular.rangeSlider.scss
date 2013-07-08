@@ -1,0 +1,332 @@
+/**
+ * 	Angular RangeSlider SCSS
+ * 
+ *	Version: 0.0.1
+ *
+ * 	Author: Daniel Crisp, danielcrisp.com
+ *
+ * 	The rangeSlider has been styled to match the default styling
+ * 	of form elements styled using Twitter's Bootstrap
+ * 
+ * 	Originally forked from https://github.com/leongersen/noUiSlider
+ *
+ */
+
+/*------------------------------------*\
+    COMPASS IMPORTS
+\*------------------------------------*/
+
+@import "compass/css3";
+@import "compass/css3/user-interface";
+
+/*------------------------------------*\
+    SETTINGS
+\*------------------------------------*/
+
+// handle dimensions
+$handleWidth: 18px;
+$handleHeight: 18px;
+
+// thickness of the join line
+$joinWeight: 8px;
+
+// padding between the border and the handles
+$padding: 4px;
+
+// define the height of the slider when in vertical mode
+$verticalHeight: 300px;
+
+/*------------------------------------*\
+    THE CSS
+\*------------------------------------*/
+
+.range-slider {
+
+	// RESETS
+	&, * {
+		display: block;
+		cursor: default;
+
+		@include box-sizing(border-box);
+		@include user-select(none);
+	}
+
+	position: relative;
+	margin: 10px 0 30px; // allow enough bottom margin to contain values
+	padding: $padding;
+	
+	border: 1px solid #ccc;
+	background: #fff;
+
+	@include border-radius(4px);
+	@include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075));
+	@include transition(border linear .2s, box-shadow linear .2s);
+
+	/*------------------------------------*\
+	    RUNNER
+	\*------------------------------------*/
+
+	.runner {
+		position: relative;
+		margin: 0 $handleWidth / 2;
+		height: $handleHeight;
+	}
+
+	/*------------------------------------*\
+	    JOIN (connects the two handles)
+	\*------------------------------------*/
+
+	.join {
+		position: absolute;
+		z-index: 1;
+		top: 50%;
+		left: 0;
+		right: 100%;
+		height: $joinWeight;
+		margin: (-$joinWeight / 2) 0 0 0;
+
+		@include background-image(linear-gradient(#5bc0de, #2f96b4)); // primary: #08c, #04c | alternative: #5bc0de, #2f96b4
+	}
+
+	/*------------------------------------*\
+	    HANDLE
+	\*------------------------------------*/
+
+	.handle {
+		position: absolute;
+		z-index: 2;
+		height: 100%;
+		width: $handleWidth;
+		margin: 0 0 0 (-$handleWidth / 2);
+		background: #efefef;
+		border: 1px solid #ccc;
+		@include border-radius(3px);
+
+		/*------------------------------------*\
+		    HANDLE ICON
+		\*------------------------------------*/
+
+		i {
+			display: block;
+			width: 100%;
+			height: 100%;
+			background: no-repeat -9999px -9999px;
+			cursor: pointer;
+		}
+
+		&:hover,
+		&.down {
+			i {
+				background-position: 50% 50%;
+			}
+		}
+
+		&.down {
+			@include box-shadow(0 0 $padding rgba(0, 0, 0, 0.2));
+		}
+
+	}
+
+	/*------------------------------------*\
+	    HANDLE SPECIFICS
+	\*------------------------------------*/
+
+	.handle-min {
+		i {
+			// represents a left arrow
+			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFNJREFUeNpiYMAEXEDsA+OwoEnKALETEHOgK2AEYhMgNkQ3DqSAB6pLAot1DExIJmAFzED8C4hvQdnIppyFKYCBp0D8CohloVafxWUqN7I3AQIMAKw6B24pOi8lAAAAAElFTkSuQmCC');
+		}
+	}
+	
+	.handle-max {
+		i {
+			// represents a right arrow
+			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFdJREFUeNpiYEAAHyDmYkADzEhsByBWA+K3QPwJmwJjIGYBYlUgZgLi59gUwIAkEEsD8VMmBtyAkQFqJDZwAYjPAPE/dAU/gHg/ED/GpgvkTW50QYAAAwADfwrM5sqplgAAAABJRU5ErkJggg==');
+		}
+	}
+	
+	/*------------------------------------*\
+	    VALUE LABELS
+	\*------------------------------------*/
+
+	.value {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		padding: 5px 0 0 0;
+		font-size: 12px;
+		color: #999;
+
+		&.value-max {
+			left: auto;
+			right: 0;
+			text-align: right;
+		}
+	}
+
+	&.handle-min-down .value-min,
+	&.handle-max-down .value-max {
+		color: #333;
+	}
+
+	/*------------------------------------*\
+	    VERTICAL SLIDER
+	\*------------------------------------*/
+
+	&.vertical {
+		width: $handleWidth + ($padding * 2) + 2; // additional 2 is for the border
+		margin: 10px auto;		
+
+		/*------------------------------------*\
+		    RUNNER
+		\*------------------------------------*/
+
+		.runner {
+			margin: $handleHeight / 2 0;
+			height: $verticalHeight;
+			width: $handleWidth;
+		}
+
+		/*------------------------------------*\
+		    JOIN
+		\*------------------------------------*/
+
+		.join {
+			width: $joinWeight;
+			height: auto;
+			top: 0;
+			bottom: 100%;
+			left: 50%;
+			right: auto;
+			margin: 0 0 0 (-$joinWeight / 2);
+		}
+
+		/*------------------------------------*\
+		    HANDLE
+		\*------------------------------------*/
+
+		.handle {
+			width: 100%;
+			height: $handleHeight;
+			margin: (-$handleHeight / 2) 0 0 0;
+		}
+		
+		/*------------------------------------*\
+		    HANDLE SPECIFICS
+		\*------------------------------------*/
+
+		.handle-min {
+			i {
+				// represents an up arrow
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFFJREFUeNpiYEAFPFAMB0xIbEYgdoJiRpggM5ICUyBWhZoA0vgMWYEsENsg6ZQE4ldA/AmkkguIHZGNhQKQGBfIBHcgFmTABCxALMJAMQAIMAAcNgVQJ7t7JQAAAABJRU5ErkJggg==');
+			}
+		}
+		
+		.handle-max {
+			i {
+				// represents a down arrow
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFZJREFUeNpiYKAUMAKxDxBL4ZB/xgQk9gHxDyySILF9zEDiNxC/A2JVNAW7gfgtM5TzCYhZgFgCyr8IxNdADGZk+4BYGoi/APEBIP6PzVE8UAwHAAEGAArIDvzRFIA6AAAAAElFTkSuQmCC');
+			}
+		}
+
+		/*------------------------------------*\
+		    VALUE LABELS
+		\*------------------------------------*/
+
+		.value {
+			top: 0;
+			left: 100%;
+			padding: 0 0 0 5px;
+
+			&.value-max {
+				top: auto;
+				bottom: 0;
+				right: auto;
+				text-align: left;
+			}
+		}
+
+		/*------------------------------------*\
+		    VERTICAL LEFT SLIDER
+		\*------------------------------------*/
+
+		&.left {
+			margin: 10px 0;
+		}
+		
+		/*------------------------------------*\
+		    VERTICAL RIGHT SLIDER
+		\*------------------------------------*/
+
+		&.right {
+			margin: 10px 0 10px auto;
+
+			/*------------------------------------*\
+			    VALUE LABELS
+			\*------------------------------------*/
+
+			.value {
+				left: auto;
+				right: 100%;
+				padding: 0 5px 0 0;
+				text-align: right;
+
+				&.value-max {
+					text-align: right;
+				}
+			}
+
+		}
+	}
+
+	/*------------------------------------*\
+	    FOCUS STATE
+	\*------------------------------------*/
+
+	&.focus {
+		border-color: rgba(82, 168, 236, 0.8);
+		@include box-shadow(inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(82,168,236,0.6));
+	}
+
+	/*------------------------------------*\
+	    DISABLED STATE
+	\*------------------------------------*/
+
+	&.disabled {
+
+		&, &.focus {
+			// make sure the focus state is not used
+			border-color: #ddd;
+			@include box-shadow(none);
+		}
+
+		.handle {
+			background: #fff;
+			border-color: #ddd;
+
+			i {
+				background: none !important;
+				cursor: default;
+			}
+		}
+
+		.join {
+			background: #ddd;
+		}
+
+		.value {
+			color: #ddd;
+		}
+
+	}
+
+}
+
+/*------------------------------------*\
+    TOUCH STATE
+\*------------------------------------*/
+
+body.TOUCH {
+	// prevents the user from panning or zooming while they are using the slider
+	-ms-touch-action: none;
+}

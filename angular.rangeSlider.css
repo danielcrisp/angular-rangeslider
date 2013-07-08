@@ -1,0 +1,293 @@
+/**
+ * 	Angular RangeSlider SCSS
+ * 
+ *	Version: 0.0.1
+ *
+ * 	Author: Daniel Crisp, danielcrisp.com
+ *
+ * 	The rangeSlider has been styled to match the default styling
+ * 	of form elements styled using Twitter's Bootstrap
+ * 
+ * 	Originally forked from https://github.com/leongersen/noUiSlider
+ *
+ */
+/*------------------------------------*\
+    COMPASS IMPORTS
+\*------------------------------------*/
+/*------------------------------------*\
+    SETTINGS
+\*------------------------------------*/
+/*------------------------------------*\
+    THE CSS
+\*------------------------------------*/
+/* line 43, scss/angular.rangeSlider.scss */
+.range-slider {
+  position: relative;
+  margin: 10px 0 30px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border linear, box-shadow linear;
+  -webkit-transition-delay: 0.2s, 0.2s;
+  -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+  transition: border linear 0.2s, box-shadow linear 0.2s;
+  /*------------------------------------*\
+      RUNNER
+  \*------------------------------------*/
+  /*------------------------------------*\
+      JOIN (connects the two handles)
+  \*------------------------------------*/
+  /*------------------------------------*\
+      HANDLE
+  \*------------------------------------*/
+  /*------------------------------------*\
+      HANDLE SPECIFICS
+  \*------------------------------------*/
+  /*------------------------------------*\
+      VALUE LABELS
+  \*------------------------------------*/
+  /*------------------------------------*\
+      VERTICAL SLIDER
+  \*------------------------------------*/
+  /*------------------------------------*\
+      FOCUS STATE
+  \*------------------------------------*/
+  /*------------------------------------*\
+      DISABLED STATE
+  \*------------------------------------*/
+}
+/* line 46, scss/angular.rangeSlider.scss */
+.range-slider, .range-slider * {
+  display: block;
+  cursor: default;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+/* line 69, scss/angular.rangeSlider.scss */
+.range-slider .runner {
+  position: relative;
+  margin: 0 9px;
+  height: 18px;
+}
+/* line 79, scss/angular.rangeSlider.scss */
+.range-slider .join {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 0;
+  right: 100%;
+  height: 8px;
+  margin: -4px 0 0 0;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5bc0de), color-stop(100%, #2f96b4));
+  background-image: -webkit-linear-gradient(#5bc0de, #2f96b4);
+  background-image: -moz-linear-gradient(#5bc0de, #2f96b4);
+  background-image: -o-linear-gradient(#5bc0de, #2f96b4);
+  background-image: linear-gradient(#5bc0de, #2f96b4);
+}
+/* line 95, scss/angular.rangeSlider.scss */
+.range-slider .handle {
+  position: absolute;
+  z-index: 2;
+  height: 100%;
+  width: 18px;
+  margin: 0 0 0 -9px;
+  background: #efefef;
+  border: 1px solid #ccc;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  /*------------------------------------*\
+      HANDLE ICON
+  \*------------------------------------*/
+}
+/* line 109, scss/angular.rangeSlider.scss */
+.range-slider .handle i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: no-repeat -9999px -9999px;
+  cursor: pointer;
+}
+/* line 119, scss/angular.rangeSlider.scss */
+.range-slider .handle:hover i, .range-slider .handle.down i {
+  background-position: 50% 50%;
+}
+/* line 124, scss/angular.rangeSlider.scss */
+.range-slider .handle.down {
+  -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+/* line 135, scss/angular.rangeSlider.scss */
+.range-slider .handle-min i {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFNJREFUeNpiYMAEXEDsA+OwoEnKALETEHOgK2AEYhMgNkQ3DqSAB6pLAot1DExIJmAFzED8C4hvQdnIppyFKYCBp0D8CohloVafxWUqN7I3AQIMAKw6B24pOi8lAAAAAElFTkSuQmCC");
+}
+/* line 142, scss/angular.rangeSlider.scss */
+.range-slider .handle-max i {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFdJREFUeNpiYEAAHyDmYkADzEhsByBWA+K3QPwJmwJjIGYBYlUgZgLi59gUwIAkEEsD8VMmBtyAkQFqJDZwAYjPAPE/dAU/gHg/ED/GpgvkTW50QYAAAwADfwrM5sqplgAAAABJRU5ErkJggg==");
+}
+/* line 152, scss/angular.rangeSlider.scss */
+.range-slider .value {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  padding: 5px 0 0 0;
+  font-size: 12px;
+  color: #999;
+}
+/* line 160, scss/angular.rangeSlider.scss */
+.range-slider .value.value-max {
+  left: auto;
+  right: 0;
+  text-align: right;
+}
+/* line 168, scss/angular.rangeSlider.scss */
+.range-slider.handle-min-down .value-min, .range-slider.handle-max-down .value-max {
+  color: #333;
+}
+/* line 176, scss/angular.rangeSlider.scss */
+.range-slider.vertical {
+  width: 28px;
+  margin: 10px auto;
+  /*------------------------------------*\
+      RUNNER
+  \*------------------------------------*/
+  /*------------------------------------*\
+      JOIN
+  \*------------------------------------*/
+  /*------------------------------------*\
+      HANDLE
+  \*------------------------------------*/
+  /*------------------------------------*\
+      HANDLE SPECIFICS
+  \*------------------------------------*/
+  /*------------------------------------*\
+      VALUE LABELS
+  \*------------------------------------*/
+  /*------------------------------------*\
+      VERTICAL LEFT SLIDER
+  \*------------------------------------*/
+  /*------------------------------------*\
+      VERTICAL RIGHT SLIDER
+  \*------------------------------------*/
+}
+/* line 184, scss/angular.rangeSlider.scss */
+.range-slider.vertical .runner {
+  margin: 9px 0;
+  height: 300px;
+  width: 18px;
+}
+/* line 194, scss/angular.rangeSlider.scss */
+.range-slider.vertical .join {
+  width: 8px;
+  height: auto;
+  top: 0;
+  bottom: 100%;
+  left: 50%;
+  right: auto;
+  margin: 0 0 0 -4px;
+}
+/* line 208, scss/angular.rangeSlider.scss */
+.range-slider.vertical .handle {
+  width: 100%;
+  height: 18px;
+  margin: -9px 0 0 0;
+}
+/* line 219, scss/angular.rangeSlider.scss */
+.range-slider.vertical .handle-min i {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFFJREFUeNpiYEAFPFAMB0xIbEYgdoJiRpggM5ICUyBWhZoA0vgMWYEsENsg6ZQE4ldA/AmkkguIHZGNhQKQGBfIBHcgFmTABCxALMJAMQAIMAAcNgVQJ7t7JQAAAABJRU5ErkJggg==");
+}
+/* line 226, scss/angular.rangeSlider.scss */
+.range-slider.vertical .handle-max i {
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFZJREFUeNpiYKAUMAKxDxBL4ZB/xgQk9gHxDyySILF9zEDiNxC/A2JVNAW7gfgtM5TzCYhZgFgCyr8IxNdADGZk+4BYGoi/APEBIP6PzVE8UAwHAAEGAArIDvzRFIA6AAAAAElFTkSuQmCC");
+}
+/* line 236, scss/angular.rangeSlider.scss */
+.range-slider.vertical .value {
+  top: 0;
+  left: 100%;
+  padding: 0 0 0 5px;
+}
+/* line 241, scss/angular.rangeSlider.scss */
+.range-slider.vertical .value.value-max {
+  top: auto;
+  bottom: 0;
+  right: auto;
+  text-align: left;
+}
+/* line 253, scss/angular.rangeSlider.scss */
+.range-slider.vertical.left {
+  margin: 10px 0;
+}
+/* line 261, scss/angular.rangeSlider.scss */
+.range-slider.vertical.right {
+  margin: 10px 0 10px auto;
+  /*------------------------------------*\
+      VALUE LABELS
+  \*------------------------------------*/
+}
+/* line 268, scss/angular.rangeSlider.scss */
+.range-slider.vertical.right .value {
+  left: auto;
+  right: 100%;
+  padding: 0 5px 0 0;
+  text-align: right;
+}
+/* line 274, scss/angular.rangeSlider.scss */
+.range-slider.vertical.right .value.value-max {
+  text-align: right;
+}
+/* line 286, scss/angular.rangeSlider.scss */
+.range-slider.focus {
+  border-color: rgba(82, 168, 236, 0.8);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+/* line 297, scss/angular.rangeSlider.scss */
+.range-slider.disabled, .range-slider.disabled.focus {
+  border-color: #ddd;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+/* line 303, scss/angular.rangeSlider.scss */
+.range-slider.disabled .handle {
+  background: #fff;
+  border-color: #ddd;
+}
+/* line 307, scss/angular.rangeSlider.scss */
+.range-slider.disabled .handle i {
+  background: none !important;
+  cursor: default;
+}
+/* line 313, scss/angular.rangeSlider.scss */
+.range-slider.disabled .join {
+  background: #ddd;
+}
+/* line 317, scss/angular.rangeSlider.scss */
+.range-slider.disabled .value {
+  color: #ddd;
+}
+
+/*------------------------------------*\
+    TOUCH STATE
+\*------------------------------------*/
+/* line 329, scss/angular.rangeSlider.scss */
+body.TOUCH {
+  -ms-touch-action: none;
+}
