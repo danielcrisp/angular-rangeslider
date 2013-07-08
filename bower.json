@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"main": "./angular.rangeSlider.js",
 	"dependencies": {
-		"angular": "1.1.4",
+		"unstable-angular-complete": "1.1.4",
 		"jquery": "1.7"
 	}
 }
