@@ -6,6 +6,11 @@ Angular RangeSlider is a directive that creates an interactive slider that allow
 
 It has been styled to match form elements styled by [Twitter's Bootstrap CSS framework](http://twitter.github.io/bootstrap/).
 
+#### Requirements
+
+- Angular
+- jQuery (full version)
+
 Quick example
 -------------
 
