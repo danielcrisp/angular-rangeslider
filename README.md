@@ -8,8 +8,8 @@ It has been styled to match form elements styled by [Twitter's Bootstrap CSS fra
 
 #### Requirements
 
-- Angular
-- jQuery (full version)
+- Angular (v1.1.4)
+- jQuery (v1.7)
 
 Quick example
 -------------
@@ -121,6 +121,7 @@ To Do
 -----
 
 - Remove full jQuery dependency
+- Make it work in older Angular versions
 - Add option to move values with handles
 - Improve behaviour when model values are not valid (e.g. min is greater than max)
 
