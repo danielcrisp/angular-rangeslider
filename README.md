@@ -20,7 +20,7 @@ A basic slider with a range of 0 to 100:
 
 As the handles are moved the model values `min` and `max` will be updated in the parent controller.
 
-[Default example](https://github.com/danielcrisp/angular-rangeslider/raw/master/screenshots/slider.png)
+![Default example](screenshots/slider.png)
 
 Options
 -------
@@ -82,7 +82,7 @@ This will automatically be localised by Angular, but we can force it to be USD b
 
     <div range-slider min="minPrice" max="maxPrice" model-min="userMinPrice" model-max="userMaxPrice" step="5" filter="currency" filter-options="USD$"></div>
 
-[Currency example](https://github.com/danielcrisp/angular-rangeslider/raw/master/screenshots/currency.png)
+![Currency example](screenshots/currency.png)
 
 ### Making the slider vertical
 
@@ -92,7 +92,7 @@ This will create a vertical slider that is centred in it's parent element:
 
     <div range-slider min="0" max="100" model-min="min" model-max="max" orientation="vertical"></div>
 
-[Vertical example](https://github.com/danielcrisp/angular-rangeslider/raw/master/screenshots/vertical.png)
+![Vertical example](screenshots/vertical.png)
 
 To left-align the slider use 'vertical left':
 
