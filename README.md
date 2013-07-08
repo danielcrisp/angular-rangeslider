@@ -1,0 +1,2 @@
+angular-rangeslider2
+====================
