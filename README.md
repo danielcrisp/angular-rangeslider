@@ -115,6 +115,7 @@ And then specify the property using the disabled attribute:
     // clicking this button will toggle the sliderDisabled value between true and false
     <button ng-click="sliderDisabled=!sliderDisabled">Toggle slider disabled status</button>
     
+![Disabled example](screenshots/disabled.png)
 
 
 Credits
