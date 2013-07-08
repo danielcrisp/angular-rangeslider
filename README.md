@@ -8,8 +8,8 @@ It has been styled to match form elements styled by [Twitter's Bootstrap CSS fra
 
 #### Requirements
 
-- Angular (v1.1.4)
-- jQuery (v1.7)
+- Angular (v1.1.4+)
+- jQuery (v1.7+)
 
 Quick example
 -------------
