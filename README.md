@@ -117,6 +117,20 @@ And then specify the property using the disabled attribute:
     
 ![Disabled example](screenshots/disabled.png)
 
+To Do
+-----
+
+- Remove full jQuery dependency
+- Add option to move values with handles
+- Improve behaviour when model values are not valid (e.g. min is greater than max)
+
+
+Known Issues
+------------
+
+ - The slider restricts the model value when editing outside the slider (e.g. in an <input>) but the only notification is made to the `console`
+ - The min slider handle disappears behind the max slider handle
+
 
 Credits
 -------
