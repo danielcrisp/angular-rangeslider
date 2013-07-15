@@ -235,13 +235,28 @@
                             scope.filteredModelMax = scope.modelMax;
                         }
 
-                        // reposition handles
-                        angular.element(handles[0]).css(pos, handle1pos + '%');
+                        // check for no range
+                        if (scope.min === scope.max && scope.modelMin == scope.modelMax) {
 
-                        angular.element(handles[1]).css(pos, handle2pos + '%');
+                            // reposition handles
+                            angular.element(handles[0]).css(pos, '0%');
 
-                        // reposition join
-                        angular.element(join).css(pos, handle1pos + '%').css(posOpp, (100 - handle2pos) + '%');
+                            angular.element(handles[1]).css(pos, '100%');
+
+                            // reposition join
+                            angular.element(join).css(pos, '0%').css(posOpp, '0%');
+
+                        } else {
+
+                            // reposition handles
+                            angular.element(handles[0]).css(pos, handle1pos + '%');
+
+                            angular.element(handles[1]).css(pos, handle2pos + '%');
+
+                            // reposition join
+                            angular.element(join).css(pos, handle1pos + '%').css(posOpp, (100 - handle2pos) + '%');
+
+                        }
                     }
 
                 }
