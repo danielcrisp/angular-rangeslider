@@ -11,7 +11,7 @@
  *  Originally forked from https://github.com/leongersen/noUiSlider
  *
  */
-(function () {
+(function ($) {
     'use strict';
 
     /**
@@ -417,4 +417,4 @@
             }
         };
     });
-}());
+}(window.jQuery));
