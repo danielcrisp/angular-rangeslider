@@ -11,7 +11,7 @@
  *  Originally forked from https://github.com/leongersen/noUiSlider
  *
  */
-(function ($) {
+(function () {
     'use strict';
 
     /**
@@ -277,7 +277,7 @@
                             previousProposal = false;
 
                         // stop user accidentally selecting stuff
-                        $('body').bind('selectstart' + eventNamespace, function () {
+                        angular.element('body').bind('selectstart' + eventNamespace, function () {
                             return false;
                         });
 
@@ -290,7 +290,7 @@
                             $slider.addClass('focus ' + handleDownClass);
 
                             // add touch class for MS styling
-                            $('body').addClass('TOUCH');
+                            angular.element('body').addClass('TOUCH');
 
                             // listen for mousemove / touchmove document events
                             $document.on(moveEvent, function (e) {
@@ -371,7 +371,7 @@
 
                                 unbind.off(eventNamespace);
 
-                                $('body').removeClass('TOUCH');
+                                angular.element('body').removeClass('TOUCH');
 
                                 // remove down class
                                 $handle.removeClass('down');
@@ -417,4 +417,4 @@
             }
         };
     });
-}(window.jQuery));
+}());
