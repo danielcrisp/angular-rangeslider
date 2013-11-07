@@ -1,7 +1,7 @@
 /**
  *  Angular RangeSlider Directive
  * 
- *  Version: 0.0.1
+ *  Version: 0.0.2
  *
  *  Author: Daniel Crisp, danielcrisp.com
  *
