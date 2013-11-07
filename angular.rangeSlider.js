@@ -266,7 +266,7 @@
                     var $handle = handles[index];
 
                     // on mousedown / touchstart
-                    $handle.on(onEvent, function (event) {
+                    $handle.bind(onEvent, function (event) {
 
                         var handleDownClass = (index === 0 ? 'handle-min' : 'handle-max') + '-down',
                             unbind = $handle.add($document).add('body'),
@@ -293,7 +293,7 @@
                             angular.element('body').addClass('TOUCH');
 
                             // listen for mousemove / touchmove document events
-                            $document.on(moveEvent, function (e) {
+                            $document.bind(moveEvent, function (e) {
                                 // prevent default
                                 e.preventDefault();
 
@@ -367,7 +367,7 @@
 
                                 previousClick = currentClick;
 
-                            }).on(offEvent, function () {
+                            }).bind(offEvent, function () {
 
                                 unbind.off(eventNamespace);
 
@@ -402,11 +402,11 @@
 
                 $slider
                     // disable selection
-                    .on('selectstart' + eventNamespace, function (event) {
+                    .bind('selectstart' + eventNamespace, function (event) {
                         return false;
                     })
                     // stop propagation
-                    .on('click', function (event) {
+                    .bind('click', function (event) {
                         event.stopPropagation();
                     });
 
