@@ -180,6 +180,32 @@ $scope.demo5 = {
 				<pre>&lt;div range-slider min="0" max="10000" model-min="demo5.min" model-max="demo5.max" show-values="false"&gt;&lt;/div&gt;</pre>
 			</div>
 		</div>
+
+		<hr />
+
+		<div class="row">
+			<div class="span12">
+				<h3>Handle Pinning</h3>
+				<h4>The model</h4>
+				<pre>
+$scope.demo6 = {
+    valueA: 5000,
+    valueB: 3000
+};</pre>
+			</div>			
+
+			<div class="span12">
+				<h4>The sliders</h4>
+				<p>You many 'pin' (and hide) either the minimum or maximum handle to prevent it from being modified, effectivly converting the slider into a single-value slider.</p>
+				<p>The value of the first slider is: <strong>{{demo6.valueA}}</strong>; the second slider is <strong>{{demo6.valueB}}</strong>.</p>
+				<div range-slider min="0" max="10000" model-max="demo6.valueA" pin-handle="min"></div>
+				<div range-slider min="0" max="10000" model-min="demo6.valueB" pin-handle="max"></div>
+			</div>
+			<div class="span12">
+				<pre>&lt;div range-slider min="0" max="10000" model-max="demo6.valueA" pin-handle="min"&gt;&lt;/div&gt;</pre>
+				<pre>&lt;div range-slider min="0" max="10000" model-min="demo6.valueB" pin-handle="max"&gt;&lt;/div&gt;</pre>
+			</div>
+		</div>
 	</div>
 
 	<footer style="background: #000;">
@@ -240,6 +266,10 @@ $scope.demo5 = {
 				    max: 8000
 				};
 
+				$scope.demo6 = {
+				    valueA: 5000,
+				    valueB: 3000
+				};
         	}
         );
 
