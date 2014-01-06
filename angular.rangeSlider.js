@@ -1,7 +1,7 @@
 /**
  *  Angular RangeSlider Directive
  * 
- *  Version: 0.0.2
+ *  Version: 0.0.3
  *
  *  Author: Daniel Crisp, danielcrisp.com
  *
@@ -165,7 +165,7 @@
                         }
                     }
 
-                    scope.$watch('pinHandle', setpinHandle);
+                    scope.$watch('pinHandle', setPinHandle);
                 });
 
                 // listen for changes to values
@@ -179,7 +179,7 @@
                  * HANDLE CHANGES
                  */
 
-                function setpinHandle (status) {
+                function setPinHandle (status) {
                     if (status === "min") {
                         angular.element(handles[0]).hide();
                         angular.element(handles[1]).show();
@@ -276,7 +276,7 @@
 
                             // reposition handles
                             angular.element(handles[0]).css(pos, '0%');
-                            angular.element(handles[1]).css(pos, '100%');   
+                            angular.element(handles[1]).css(pos, '100%');
 
                             // reposition join
                             angular.element(join).css(pos, '0%').css(posOpp, '0%');

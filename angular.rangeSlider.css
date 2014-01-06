@@ -1,7 +1,7 @@
 /**
  * 	Angular RangeSlider SCSS
  * 
- *	Version: 0.0.2
+ *	Version: 0.0.3
  *
  * 	Author: Daniel Crisp, danielcrisp.com
  *
@@ -91,7 +91,6 @@
   right: 100%;
   height: 8px;
   margin: -4px 0 0 0;
-  border-radius: 4px;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5bc0de), color-stop(100%, #2f96b4));
   background-image: -webkit-linear-gradient(#5bc0de, #2f96b4);
   background-image: -moz-linear-gradient(#5bc0de, #2f96b4);

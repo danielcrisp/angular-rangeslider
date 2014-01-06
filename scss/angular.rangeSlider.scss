@@ -1,7 +1,7 @@
 /**
  * 	Angular RangeSlider SCSS
  * 
- *	Version: 0.0.2
+ *	Version: 0.0.3
  *
  * 	Author: Daniel Crisp, danielcrisp.com
  *
@@ -85,7 +85,7 @@ $verticalHeight: 300px;
 		height: $joinWeight;
 		margin: (-$joinWeight / 2) 0 0 0;
 
-		border-radius: ($joinWeight / 2);
+		//border-radius: ($joinWeight / 2);
 
 		@include background-image(linear-gradient(#5bc0de, #2f96b4)); // primary: #08c, #04c | alternative: #5bc0de, #2f96b4
 	}
