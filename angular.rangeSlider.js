@@ -76,14 +76,15 @@
                 disabled: '=?',
                 min: '=',
                 max: '=',
-                modelMin: '=',
-                modelMax: '=',
+                modelMin: '=?',
+                modelMax: '=?',
                 orientation: '@', // options: horizontal | vertical | vertical left | vertical right
                 step: '@',
                 decimalPlaces: '@',
                 filter: '@',
                 filterOptions: '@',
-                showValues: '@'
+                showValues: '@',
+                pinHandle: '@'
             },
             link: function(scope, element, attrs, controller) {
 
@@ -153,6 +154,19 @@
                     }
                 });
 
+                attrs.$observe('pinHandle', function (val) {
+                    if (!angular.isDefined(val)) {
+                        scope.pinHandle = null;
+                    } else {
+                        if (val === "min" || val === "max") {
+                            scope.pinHandle = val;
+                        } else {
+                            scope.pinHandle = null;
+                        }
+                    }
+
+                    scope.$watch('pinHandle', setpinHandle);
+                });
 
                 // listen for changes to values
                 scope.$watch('min', setMinMax);
@@ -164,6 +178,19 @@
                 /**
                  * HANDLE CHANGES
                  */
+
+                function setpinHandle (status) {
+                    if (status === "min") {
+                        angular.element(handles[0]).hide();
+                        angular.element(handles[1]).show();
+                    } else if (status === "max") {
+                        angular.element(handles[0]).show();
+                        angular.element(handles[1]).hide();
+                    } else {
+                        angular.element(handles[0]).show();
+                        angular.element(handles[1]).show();
+                    }
+                }
 
                 function setDisabledStatus (status) {
                     if (status) {
@@ -186,6 +213,7 @@
                         if (!isNumber(scope.min)) {
                             throwError("min must be a number");
                         }
+
                         if (!isNumber(scope.max)) {
                             throwError("max must be a number");
                         }
@@ -208,15 +236,23 @@
                     }
 
                     // only do stuff when both values are ready
-                    if (angular.isDefined(scope.modelMin) && angular.isDefined(scope.modelMax)) {
+                    if (
+                        (angular.isDefined(scope.modelMin) || scope.pinHandle === "min") && 
+                        (angular.isDefined(scope.modelMax) || scope.pinHandle === "max")
+                    ) {
 
                         // make sure they are numbers
                         if (!isNumber(scope.modelMin)) {
-                            throwWarning("modelMin must be a number");
+                            if (scope.pinHandle !== "min") {
+                                throwWarning("modelMin must be a number");
+                            }
                             scope.modelMin = scope.min;
                         }
+
                         if (!isNumber(scope.modelMax)) {
-                            throwWarning("modelMax must be a number");
+                            if (scope.pinHandle !== "max") {
+                                throwWarning("modelMax must be a number");
+                            }
                             scope.modelMax = scope.max;
                         }
 
@@ -240,8 +276,7 @@
 
                             // reposition handles
                             angular.element(handles[0]).css(pos, '0%');
-
-                            angular.element(handles[1]).css(pos, '100%');
+                            angular.element(handles[1]).css(pos, '100%');   
 
                             // reposition join
                             angular.element(join).css(pos, '0%').css(posOpp, '0%');
@@ -250,12 +285,10 @@
 
                             // reposition handles
                             angular.element(handles[0]).css(pos, handle1pos + '%');
-
                             angular.element(handles[1]).css(pos, handle2pos + '%');
 
                             // reposition join
                             angular.element(join).css(pos, handle1pos + '%').css(posOpp, (100 - handle2pos) + '%');
-
                         }
                     }
 

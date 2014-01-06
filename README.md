@@ -51,6 +51,8 @@ Options are set as attributes on the `<div range-slider>`
 
 `filter-options` - options to pass to the filter
 
+`pin-handle` - disable/hide one handle, default: null - options: 'min' | 'max'
+
 Some more examples
 ------------------
 
@@ -116,6 +118,14 @@ And then specify the property using the disabled attribute:
     <button ng-click="sliderDisabled=!sliderDisabled">Toggle slider disabled status</button>
     
 ![Disabled example](screenshots/disabled.png)
+
+### Pinning a handle
+
+If you would like only allow setting one value, effectively creating a single-value silder, set the pin-handle attribute to 'min' or 'max'. You may then omit the corresponding model-xxx property:
+
+    <div range-slider min="0" max="100" model-max="max" pin-handle="min></div>
+    
+![Pinned example](screenshots/pinned.png)
 
 To Do
 -----
