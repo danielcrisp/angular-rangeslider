@@ -23,7 +23,7 @@
         .directive('rangeSlider', function($document, $filter, $log) {
 
         // test for mouse, pointer or touch
-        var EVENT = window.navigator.msPointerEnabled ? 2 : 'ontouchend' in document ? 3 : 1,
+        var EVENT = window.PointerEvent ? 1 : (window.MSPointerEvent ? 2 : ('ontouchend' in document ? 3 : 4)), // 1 = IE11, 2 = IE10, 3 = touch, 4 = mouse
             eventNamespace = '.rangeSlider',
 
             defaults = {
@@ -34,9 +34,9 @@
                 showValues: true
             },
 
-            onEvent = (EVENT === 1 ? 'mousedown' : EVENT === 2 ? 'MSPointerDown' : 'touchstart') + eventNamespace + 'X',
-            moveEvent = (EVENT === 1 ? 'mousemove' : EVENT === 2 ? 'MSPointerMove' : 'touchmove') + eventNamespace,
-            offEvent = (EVENT === 1 ? 'mouseup' : EVENT === 2 ? 'MSPointerUp' : 'touchend') + eventNamespace,
+            onEvent = (EVENT === 1 ? 'pointerdown' : (EVENT === 2 ? 'MSPointerDown' : (EVENT === 3 ? 'touchstart' : 'mousedown'))) + eventNamespace,
+            moveEvent = (EVENT === 1 ? 'pointermove' : (EVENT === 2 ? 'MSPointerMove' : (EVENT === 3 ? 'touchmove' : 'mousemove'))) + eventNamespace,
+            offEvent = (EVENT === 1 ? 'pointerup' : (EVENT === 2 ? 'MSPointerUp' : (EVENT === 3 ? 'touchend' : 'mouseup'))) + eventNamespace,
 
             // get standarised clientX and clientY
             client = function (f) {
