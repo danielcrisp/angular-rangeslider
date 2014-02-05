@@ -1,7 +1,7 @@
 /*
  *  Angular RangeSlider Directive
  * 
- *  Version: 0.0.4
+ *  Version: 0.0.6
  *
  *  Author: Daniel Crisp, danielcrisp.com
  *
@@ -88,14 +88,14 @@
         return {
             restrict: 'A',
             replace: true,
-            template: ['<div class="range-slider">',
-                         '<div class="runner">',
-                           '<div class="handle handle-min"><i></i></div>',
-                           '<div class="handle handle-max"><i></i></div>',
-                           '<div class="join"></div>',
+            template: ['<div class="ngrs-range-slider">',
+                         '<div class="ngrs-runner">',
+                           '<div class="ngrs-handle ngrs-handle-min"><i></i></div>',
+                           '<div class="ngrs-handle ngrs-handle-max"><i></i></div>',
+                           '<div class="ngrs-join"></div>',
                          '</div>',
-                         '<div class="value value-min" ng-show="showValues">{{filteredModelMin}}</div>',
-                         '<div class="value value-max" ng-show="showValues">{{filteredModelMax}}</div>',
+                         '<div class="ngrs-value ngrs-value-min" ng-show="showValues">{{filteredModelMin}}</div>',
+                         '<div class="ngrs-value ngrs-value-max" ng-show="showValues">{{filteredModelMax}}</div>',
                        '</div>'].join(''),
             scope: {
                 disabled: '=?',
@@ -119,8 +119,8 @@
                  */
 
                 var $slider = angular.element(element),
-                    handles = [element.find('.handle-min'), element.find('.handle-max')],
-                    join = element.find('.join'),
+                    handles = [element.find('.ngrs-handle-min'), element.find('.ngrs-handle-max')],
+                    join = element.find('.ngrs-join'),
                     pos = 'left',
                     posOpp = 'right',
                     orientation = 0,
@@ -147,8 +147,19 @@
                     if (!angular.isDefined(val)) {
                         scope.orientation = defaults.orientation;
                     }
+
+                    var classNames = scope.orientation.split(' '),
+                        useClass;
+
+                    for (var i = 0, l = classNames.length; i < l; i++) {
+                        classNames[i] = 'ngrs-' + classNames[i];
+                    }
+
+                    useClass = classNames.join(' ');
+
                     // add class to element
-                    $slider.addClass(scope.orientation);
+                    $slider.addClass(useClass);
+
                     // update pos
                     if (scope.orientation === 'vertical' || scope.orientation === 'vertical left' || scope.orientation === 'vertical right') {
                         pos = 'top';
@@ -185,7 +196,7 @@
                     if (!angular.isDefined(val)) {
                         scope.pinHandle = null;
                     } else {
-                        if (val === "min" || val === "max") {
+                        if (val === 'min' || val === 'max') {
                             scope.pinHandle = val;
                         } else {
                             scope.pinHandle = null;
@@ -244,7 +255,7 @@
                 function setMinMax () {
 
                     if (scope.min > scope.max) {
-                        throwError("min must be less than or equal to max");
+                        throwError('min must be less than or equal to max');
                     }
 
                     // only do stuff when both values are ready
@@ -252,11 +263,11 @@
 
                         // make sure they are numbers
                         if (!isNumber(scope.min)) {
-                            throwError("min must be a number");
+                            throwError('min must be a number');
                         }
 
                         if (!isNumber(scope.max)) {
-                            throwError("max must be a number");
+                            throwError('max must be a number');
                         }
 
                         range = scope.max - scope.min;
@@ -271,28 +282,28 @@
                 function setModelMinMax () {
 
                     if (scope.modelMin > scope.modelMax) {
-                        throwWarning("modelMin must be less than or equal to modelMax");
+                        throwWarning('modelMin must be less than or equal to modelMax');
                         // reset values to correct
                         scope.modelMin = scope.modelMax;
                     }
 
                     // only do stuff when both values are ready
                     if (
-                        (angular.isDefined(scope.modelMin) || scope.pinHandle === "min") && 
-                        (angular.isDefined(scope.modelMax) || scope.pinHandle === "max")
+                        (angular.isDefined(scope.modelMin) || scope.pinHandle === 'min') && 
+                        (angular.isDefined(scope.modelMax) || scope.pinHandle === 'max')
                     ) {
 
                         // make sure they are numbers
                         if (!isNumber(scope.modelMin)) {
-                            if (scope.pinHandle !== "min") {
-                                throwWarning("modelMin must be a number");
+                            if (scope.pinHandle !== 'min') {
+                                throwWarning('modelMin must be a number');
                             }
                             scope.modelMin = scope.min;
                         }
 
                         if (!isNumber(scope.modelMax)) {
-                            if (scope.pinHandle !== "max") {
-                                throwWarning("modelMax must be a number");
+                            if (scope.pinHandle !== 'max') {
+                                throwWarning('modelMax must be a number');
                             }
                             scope.modelMax = scope.max;
                         }
@@ -340,9 +351,9 @@
                     var $handle = handles[index];
 
                     // on mousedown / touchstart
-                    $handle.bind(onEvent, function (event) {
+                    $handle.bind(onEvent + 'X', function (event) {
 
-                        var handleDownClass = (index === 0 ? 'handle-min' : 'handle-max') + '-down',
+                        var handleDownClass = (index === 0 ? 'ngrs-handle-min' : 'ngrs-handle-max') + '-down',
                             unbind = $handle.add($document).add('body'),
                             modelValue = (index === 0 ? scope.modelMin : scope.modelMax) - scope.min,
                             originalPosition = (modelValue / range) * 100,
@@ -359,12 +370,12 @@
                         if (!scope.disabled) {
 
                             // add down class
-                            $handle.addClass('down');
+                            $handle.addClass('ngrs-down');
 
-                            $slider.addClass('focus ' + handleDownClass);
+                            $slider.addClass('ngrs-focus ' + handleDownClass);
 
                             // add touch class for MS styling
-                            angular.element('body').addClass('TOUCH');
+                            angular.element('body').addClass('ngrs-TOUCH');
 
                             // listen for mousemove / touchmove document events
                             $document.bind(moveEvent, function (e) {
@@ -375,7 +386,7 @@
                                     movement,
                                     proposal,
                                     other,
-                                    per,
+                                    per = (scope.step / range) * 100,
                                     otherModelPosition = (((index === 0 ? scope.modelMax : scope.modelMin) - scope.min) / range) * 100;
 
                                 if (currentClick[0] === "x") {
@@ -394,10 +405,21 @@
                                 // propose a movement
                                 proposal = originalPosition + ((currentClick[orientation] * 100) / (orientation ? $slider.height() : $slider.width()));
 
-
                                 // normalize so it can't move out of bounds
                                 proposal = restrict(proposal);
 
+                                if (scope.preventEqualMinMax) {
+
+                                    if (per === 0) {
+                                        per = (1 / range) * 100; // restrict to 1
+                                    }
+
+                                    if (index === 0) {
+                                        otherModelPosition = otherModelPosition - per;
+                                    } else if (index === 1) {
+                                        otherModelPosition = otherModelPosition + per;
+                                    }
+                                }
 
                                 // check which handle is being moved and add / remove margin
                                 if (index === 0) {
@@ -409,7 +431,6 @@
                                 if (scope.step > 0) {
                                     // only change if we are within the extremes, otherwise we get strange rounding
                                     if (proposal < 100 && proposal > 0) {
-                                        per = (scope.step / range) * 100;
                                         proposal = Math.round(proposal / per) * per;
                                     }
                                 }
@@ -445,18 +466,16 @@
 
                                 unbind.off(eventNamespace);
 
-                                angular.element('body').removeClass('TOUCH');
+                                angular.element('body').removeClass('ngrs-TOUCH');
 
                                 // remove down class
-                                $handle.removeClass('down');
+                                $handle.removeClass('ngrs-down');
 
                                 // remove active class
-                                $slider.removeClass('focus ' + handleDownClass);
+                                $slider.removeClass('ngrs-focus ' + handleDownClass);
 
                             });
                         }
-
-
 
                     });
                 }
@@ -488,6 +507,7 @@
                     // unbind from handles
                     for (var i = 0, l = handles.length; i < l; i++) {
                         handles[i].off(eventNamespace);
+                        handles[i].off(eventNamespace + 'X');
                     }
 
                 });

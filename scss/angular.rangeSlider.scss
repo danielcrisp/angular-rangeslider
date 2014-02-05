@@ -1,7 +1,7 @@
 /**
  * 	Angular RangeSlider SCSS
  * 
- *	Version: 0.0.4
+ *	Version: 0.0.6
  *
  * 	Author: Daniel Crisp, danielcrisp.com
  *
@@ -59,11 +59,14 @@ $padding: 4px;
 // define the height of the slider when in vertical mode
 $verticalHeight: 300px;
 
+// prefix
+$prefix: 'ngrs-';
+
 /*------------------------------------*\
     THE CSS
 \*------------------------------------*/
 
-.range-slider {
+.#{$prefix}range-slider {
 
 	// RESETS
 	&, * {
@@ -89,7 +92,7 @@ $verticalHeight: 300px;
 	    RUNNER
 	\*------------------------------------*/
 
-	.runner {
+	.#{$prefix}runner {
 		position: relative;
 		margin: 0 $handleWidth / 2;
 		height: $handleHeight;
@@ -99,7 +102,7 @@ $verticalHeight: 300px;
 	    JOIN (connects the two handles)
 	\*------------------------------------*/
 
-	.join {
+	.#{$prefix}join {
 		position: absolute;
 		z-index: 1;
 		top: 50%;
@@ -108,8 +111,7 @@ $verticalHeight: 300px;
 		height: $joinWeight;
 		margin: (-$joinWeight / 2) 0 0 0;
 
-		//border-radius: ($joinWeight / 2);
-
+		@include border-radius($joinWeight / 2);
 		@include background-image(linear-gradient(#5bc0de, #2f96b4)); // primary: #08c, #04c | alternative: #5bc0de, #2f96b4
 	}
 
@@ -117,7 +119,7 @@ $verticalHeight: 300px;
 	    HANDLE
 	\*------------------------------------*/
 
-	.handle {
+	.#{$prefix}handle {
 		position: absolute;
 		z-index: 2;
 		height: 100%;
@@ -140,13 +142,13 @@ $verticalHeight: 300px;
 		}
 
 		&:hover,
-		&.down {
+		&.#{$prefix}down {
 			i {
 				background-position: 50% 50%;
 			}
 		}
 
-		&.down {
+		&.#{$prefix}down {
 			@include box-shadow(0 0 $padding rgba(0, 0, 0, 0.2));
 		}
 
@@ -156,14 +158,14 @@ $verticalHeight: 300px;
 	    HANDLE SPECIFICS
 	\*------------------------------------*/
 
-	.handle-min {
+	.#{$prefix}handle-min {
 		i {
 			// represents a left arrow
 			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFNJREFUeNpiYMAEXEDsA+OwoEnKALETEHOgK2AEYhMgNkQ3DqSAB6pLAot1DExIJmAFzED8C4hvQdnIppyFKYCBp0D8CohloVafxWUqN7I3AQIMAKw6B24pOi8lAAAAAElFTkSuQmCC');
 		}
 	}
 	
-	.handle-max {
+	.#{$prefix}handle-max {
 		i {
 			// represents a right arrow
 			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFdJREFUeNpiYEAAHyDmYkADzEhsByBWA+K3QPwJmwJjIGYBYlUgZgLi59gUwIAkEEsD8VMmBtyAkQFqJDZwAYjPAPE/dAU/gHg/ED/GpgvkTW50QYAAAwADfwrM5sqplgAAAABJRU5ErkJggg==');
@@ -174,7 +176,7 @@ $verticalHeight: 300px;
 	    VALUE LABELS
 	\*------------------------------------*/
 
-	.value {
+	.#{$prefix}value {
 		position: absolute;
 		top: 100%;
 		left: 0;
@@ -182,15 +184,15 @@ $verticalHeight: 300px;
 		font-size: 12px;
 		color: #999;
 
-		&.value-max {
+		&.#{$prefix}value-max {
 			left: auto;
 			right: 0;
 			text-align: right;
 		}
 	}
 
-	&.handle-min-down .value-min,
-	&.handle-max-down .value-max {
+	&.#{$prefix}handle-min-down .#{$prefix}value-min,
+	&.#{$prefix}handle-max-down .#{$prefix}value-max {
 		color: #333;
 	}
 
@@ -198,7 +200,7 @@ $verticalHeight: 300px;
 	    VERTICAL SLIDER
 	\*------------------------------------*/
 
-	&.vertical {
+	&.#{$prefix}vertical {
 		width: $handleWidth + ($padding * 2) + 2; // additional 2 is for the border
 		margin: 10px auto;		
 
@@ -206,7 +208,7 @@ $verticalHeight: 300px;
 		    RUNNER
 		\*------------------------------------*/
 
-		.runner {
+		.#{$prefix}runner {
 			margin: $handleHeight / 2 0;
 			height: $verticalHeight;
 			width: $handleWidth;
@@ -216,7 +218,7 @@ $verticalHeight: 300px;
 		    JOIN
 		\*------------------------------------*/
 
-		.join {
+		.#{$prefix}join {
 			width: $joinWeight;
 			height: auto;
 			top: 0;
@@ -230,7 +232,7 @@ $verticalHeight: 300px;
 		    HANDLE
 		\*------------------------------------*/
 
-		.handle {
+		.#{$prefix}handle {
 			width: 100%;
 			height: $handleHeight;
 			margin: (-$handleHeight / 2) 0 0 0;
@@ -240,14 +242,14 @@ $verticalHeight: 300px;
 		    HANDLE SPECIFICS
 		\*------------------------------------*/
 
-		.handle-min {
+		.#{$prefix}handle-min {
 			i {
 				// represents an up arrow
 				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFFJREFUeNpiYEAFPFAMB0xIbEYgdoJiRpggM5ICUyBWhZoA0vgMWYEsENsg6ZQE4ldA/AmkkguIHZGNhQKQGBfIBHcgFmTABCxALMJAMQAIMAAcNgVQJ7t7JQAAAABJRU5ErkJggg==');
 			}
 		}
 		
-		.handle-max {
+		.#{$prefix}handle-max {
 			i {
 				// represents a down arrow
 				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFZJREFUeNpiYKAUMAKxDxBL4ZB/xgQk9gHxDyySILF9zEDiNxC/A2JVNAW7gfgtM5TzCYhZgFgCyr8IxNdADGZk+4BYGoi/APEBIP6PzVE8UAwHAAEGAArIDvzRFIA6AAAAAElFTkSuQmCC');
@@ -258,12 +260,12 @@ $verticalHeight: 300px;
 		    VALUE LABELS
 		\*------------------------------------*/
 
-		.value {
+		.#{$prefix}value {
 			top: 0;
 			left: 100%;
 			padding: 0 0 0 5px;
 
-			&.value-max {
+			&.#{$prefix}value-max {
 				top: auto;
 				bottom: 0;
 				right: auto;
@@ -275,7 +277,7 @@ $verticalHeight: 300px;
 		    VERTICAL LEFT SLIDER
 		\*------------------------------------*/
 
-		&.left {
+		&.#{$prefix}left {
 			margin: 10px 0;
 		}
 		
@@ -283,20 +285,20 @@ $verticalHeight: 300px;
 		    VERTICAL RIGHT SLIDER
 		\*------------------------------------*/
 
-		&.right {
+		&.#{$prefix}right {
 			margin: 10px 0 10px auto;
 
 			/*------------------------------------*\
 			    VALUE LABELS
 			\*------------------------------------*/
 
-			.value {
+			.#{$prefix}value {
 				left: auto;
 				right: 100%;
 				padding: 0 5px 0 0;
 				text-align: right;
 
-				&.value-max {
+				&.#{$prefix}value-max {
 					text-align: right;
 				}
 			}
@@ -308,7 +310,7 @@ $verticalHeight: 300px;
 	    FOCUS STATE
 	\*------------------------------------*/
 
-	&.focus {
+	&.#{$prefix}focus {
 		border-color: rgba(82, 168, 236, 0.8);
 		@include box-shadow(inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(82,168,236,0.6));
 	}
@@ -317,15 +319,15 @@ $verticalHeight: 300px;
 	    DISABLED STATE
 	\*------------------------------------*/
 
-	&.disabled {
+	&.#{$prefix}disabled {
 
-		&, &.focus {
+		&, &.#{$prefix}focus {
 			// make sure the focus state is not used
 			border-color: #ddd;
 			@include box-shadow(none);
 		}
 
-		.handle {
+		.#{$prefix}handle {
 			background: #fff;
 			border-color: #ddd;
 
@@ -335,11 +337,11 @@ $verticalHeight: 300px;
 			}
 		}
 
-		.join {
+		.#{$prefix}join {
 			background: #ddd;
 		}
 
-		.value {
+		.#{$prefix}value {
 			color: #ddd;
 		}
 
@@ -351,7 +353,7 @@ $verticalHeight: 300px;
     TOUCH STATE
 \*------------------------------------*/
 
-body.TOUCH {
+body.#{$prefix}TOUCH {
 	// prevents the user from panning or zooming while they are using the slider
 	-ms-touch-action: none;
 }

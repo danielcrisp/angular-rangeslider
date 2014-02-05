@@ -206,6 +206,43 @@ $scope.demo6 = {
 				<pre>&lt;div range-slider min="0" max="10000" model-min="demo6.valueB" pin-handle="max"&gt;&lt;/div&gt;</pre>
 			</div>
 		</div>
+
+		<hr />
+
+		<div class="row">
+			<div class="span12">
+				<h3>Prevent the handles from being equal</h3>
+				<h4>The model</h4>
+				<pre>
+$scope.demo7 = {
+    range: {
+        min: 0,
+        max: 10050
+    },
+    minPrice: 1000,
+    maxPrice: 4000
+};</pre>
+			</div>			
+
+			<div class="span5">
+				<h4>The slider</h4>
+				
+				<p>You can prevent the two values from being equal by using the <code>prevent-equal-min-max="true"</code> attribute. The <code>step</code> value is used to maintain a gap between the values, so if the <code>step</code> is set to <code>100</code> the minimum difference will be 100. If no <code>step</code> value is provided a minimum difference of <code>1</code> will be used.</p>
+
+				<div range-slider min="demo7.range.min" max="demo7.range.max" model-min="demo7.minPrice" model-max="demo7.maxPrice" step="100" prevent-equal-min-max="true"></div>
+				
+			</div>
+			<div class="span2"></div>
+			<div class="span5">
+				<h4>The HTML</h4>
+				<p>Here we are using the <code>step</code> and <code>prevent-equal-min-max</code> options.</p>
+				<pre>&lt;div range-slider min="demo2.range.min" max="demo2.range.max" model-min="demo2.minPrice" model-max="demo2.maxPrice" step="100" prevent-equal-min-max="true"&gt;&lt;/div&gt;</pre>
+
+			</div>
+			
+
+		</div>
+
 	</div>
 
 	<!-- we need jQuery -->
@@ -265,6 +302,16 @@ $scope.demo6 = {
 				    valueA: 5000,
 				    valueB: 3000
 				};
+
+        		$scope.demo7 = {
+					range: {
+						min: 0,
+						max: 10050
+					},
+					minPrice: 1000,
+					maxPrice: 4000
+				};
+
         	}
         );
 

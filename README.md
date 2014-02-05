@@ -1,6 +1,6 @@
 angular-rangeslider
 ===================
-_Current version: 0.0.4_
+_Current version: 0.0.6_
 
 Angular RangeSlider is a directive that creates an interactive slider that allows a user to change model values.
 
@@ -52,6 +52,8 @@ Options are set as attributes on the `<div range-slider>`
 `filter-options` - options to pass to the filter
 
 `pin-handle` - disable/hide one handle, default: null - options: 'min' | 'max'
+
+`prevent-equal-min-max` - prevent the `min` and `max` values from being equal. The `step` value is used to set the minimum difference, otherwise a value of `1` is used.
 
 Some more examples
 ------------------
