@@ -55,7 +55,8 @@
                 orientation: 'horizontal',
                 step: 0,
                 decimalPlaces: 0,
-                showValues: true
+                showValues: true,
+                preventEqualMinMax: false
             },
 
             onEvent = (EVENT === 1 ? 'pointerdown' : (EVENT === 2 ? 'MSPointerDown' : (EVENT === 3 ? 'touchstart' : 'mousedown'))) + eventNamespace,
@@ -108,7 +109,8 @@
                 filter: '@',
                 filterOptions: '@',
                 showValues: '@',
-                pinHandle: '@'
+                pinHandle: '@',
+                preventEqualMinMax: '@'
             },
             link: function(scope, element, attrs, controller) {
 
@@ -132,6 +134,7 @@
                 /**
                  *  FALL BACK TO DEFAULTS FOR SOME ATTRIBUTES
                  */
+
                 attrs.$observe('disabled', function (val) {
                     if (!angular.isDefined(val)) {
                         scope.disabled = defaults.disabled;
@@ -191,6 +194,20 @@
 
                     scope.$watch('pinHandle', setPinHandle);
                 });
+
+                attrs.$observe('preventEqualMinMax', function (val) {
+                    if (!angular.isDefined(val)) {
+                        scope.preventEqualMinMax = defaults.preventEqualMinMax;
+                    } else {
+                        if (val === 'false') {
+                            scope.preventEqualMinMax = false;
+                        } else {
+                            scope.preventEqualMinMax = true;
+                        }
+                    }
+                });
+
+
 
                 // listen for changes to values
                 scope.$watch('min', setMinMax);
@@ -452,6 +469,28 @@
                 function throwWarning (message) {
                     $log.warn(message);
                 }
+
+                /**
+                 * DESTROY
+                 */
+
+                scope.$on('$destroy', function () {
+
+                    // unbind event from slider
+                    $slider.off(eventNamespace);
+
+                    // unbind from body
+                    angular.element('body').off(eventNamespace);
+
+                    // unbind from document
+                    $document.off(eventNamespace);
+
+                    // unbind from handles
+                    for (var i = 0, l = handles.length; i < l; i++) {
+                        handles[i].off(eventNamespace);
+                    }
+
+                });
 
                 /**
                  * INIT
