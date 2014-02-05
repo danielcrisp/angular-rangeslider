@@ -181,14 +181,14 @@
 
                 function setPinHandle (status) {
                     if (status === "min") {
-                        angular.element(handles[0]).hide();
-                        angular.element(handles[1]).show();
+                        angular.element(handles[0]).css('display', 'none');
+                        angular.element(handles[1]).css('display', 'block');
                     } else if (status === "max") {
-                        angular.element(handles[0]).show();
-                        angular.element(handles[1]).hide();
+                        angular.element(handles[0]).css('display', 'block');
+                        angular.element(handles[1]).css('display', 'none');
                     } else {
-                        angular.element(handles[0]).show();
-                        angular.element(handles[1]).show();
+                        angular.element(handles[0]).css('display', 'block');
+                        angular.element(handles[1]).css('display', 'block');
                     }
                 }
 
