@@ -87,6 +87,8 @@ $prefix: 'ngrs-';
 	@include border-radius(4px);
 	@include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075));
 	@include transition(border linear .2s, box-shadow linear .2s);
+	
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
 
 	/*------------------------------------*\
 	    RUNNER
@@ -141,7 +143,7 @@ $prefix: 'ngrs-';
 			cursor: pointer;
 		}
 
-		&:hover,
+		.ngrs-no-touch &:hover,
 		&.#{$prefix}down {
 			i {
 				background-position: 50% 50%;
@@ -353,7 +355,7 @@ $prefix: 'ngrs-';
     TOUCH STATE
 \*------------------------------------*/
 
-body.#{$prefix}TOUCH {
+body.#{$prefix}touching {
 	// prevents the user from panning or zooming while they are using the slider
 	-ms-touch-action: none;
 }

@@ -63,6 +63,7 @@
   -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   /*------------------------------------*\
       RUNNER
   \*------------------------------------*/
@@ -99,13 +100,13 @@
   -moz-user-select: none;
   user-select: none;
 }
-/* line 95, scss/angular.rangeSlider.scss */
+/* line 97, scss/angular.rangeSlider.scss */
 .ngrs-range-slider .ngrs-runner {
   position: relative;
   margin: 0 9px;
   height: 18px;
 }
-/* line 105, scss/angular.rangeSlider.scss */
+/* line 107, scss/angular.rangeSlider.scss */
 .ngrs-range-slider .ngrs-join {
   position: absolute;
   z-index: 1;
@@ -152,7 +153,7 @@
   cursor: pointer;
 }
 /* line 148, scss/angular.rangeSlider.scss */
-.ngrs-range-slider .ngrs-handle:hover i, .ngrs-range-slider .ngrs-handle.ngrs-down i {
+.ngrs-no-touch .ngrs-range-slider .ngrs-handle:hover i, .ngrs-range-slider .ngrs-handle.ngrs-down i {
   background-position: 50% 50%;
 }
 /* line 153, scss/angular.rangeSlider.scss */
@@ -316,6 +317,6 @@
     TOUCH STATE
 \*------------------------------------*/
 /* line 358, scss/angular.rangeSlider.scss */
-body.ngrs-TOUCH {
+body.ngrs-touching {
   -ms-touch-action: none;
 }

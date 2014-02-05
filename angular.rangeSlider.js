@@ -84,6 +84,13 @@
                 return !isNaN(parseFloat(n)) && isFinite(n);
             };
 
+        if (EVENT < 4) {
+            // some sort of touch has been detected
+            angular.element('html').addClass('ngrs-touch');
+        } else {
+            angular.element('html').addClass('ngrs-no-touch');
+        }
+
 
         return {
             restrict: 'A',
@@ -375,7 +382,7 @@
                             $slider.addClass('ngrs-focus ' + handleDownClass);
 
                             // add touch class for MS styling
-                            angular.element('body').addClass('ngrs-TOUCH');
+                            angular.element('body').addClass('ngrs-touching');
 
                             // listen for mousemove / touchmove document events
                             $document.bind(moveEvent, function (e) {
@@ -466,7 +473,7 @@
 
                                 unbind.off(eventNamespace);
 
-                                angular.element('body').removeClass('ngrs-TOUCH');
+                                angular.element('body').removeClass('ngrs-touching');
 
                                 // remove down class
                                 $handle.removeClass('ngrs-down');
