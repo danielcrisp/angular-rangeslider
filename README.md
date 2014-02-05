@@ -11,6 +11,11 @@ It has been styled to match form elements styled by [Twitter's Bootstrap CSS fra
 - Angular (v1.1.4+)
 - jQuery (v1.7+)
 
+GitHub Pages
+------------
+
+[Project page](http://danielcrisp.github.io/angular-rangeslider/)
+
 Quick example
 -------------
 
