@@ -127,12 +127,16 @@
 
                 var $slider = angular.element(element),
                     handles = [element.find('.ngrs-handle-min'), element.find('.ngrs-handle-max')],
+                    handle1pos = 0,
+                    handle2pos = 0,
                     join = element.find('.ngrs-join'),
                     pos = 'left',
                     posOpp = 'right',
                     orientation = 0,
                     allowedRange = [0, 0],
-                    range = 0;
+                    range = 0,
+                    scheduledFrame = false,
+                    body = angular.element('body');
 
                 // filtered
                 scope.filteredModelMin = scope.modelMin;
@@ -240,14 +244,14 @@
 
                 function setPinHandle (status) {
                     if (status === "min") {
-                        angular.element(handles[0]).css('display', 'none');
-                        angular.element(handles[1]).css('display', 'block');
+                        handles[0].css('display', 'none');
+                        handles[1].css('display', 'block');
                     } else if (status === "max") {
-                        angular.element(handles[0]).css('display', 'block');
-                        angular.element(handles[1]).css('display', 'none');
+                        handles[0].css('display', 'block');
+                        handles[1].css('display', 'none');
                     } else {
-                        angular.element(handles[0]).css('display', 'block');
-                        angular.element(handles[1]).css('display', 'block');
+                        handles[0].css('display', 'block');
+                        handles[1].css('display', 'block');
                     }
                 }
 
@@ -288,6 +292,14 @@
 
                 function setModelMinMax () {
 
+
+                    // skip the calculations if there is a frame scheduled to be drawn
+                    if (scheduledFrame) {
+                        return;
+                    }
+
+                    scheduledFrame = true;
+                    
                     if (scope.modelMin > scope.modelMax) {
                         throwWarning('modelMin must be less than or equal to modelMax');
                         // reset values to correct
@@ -315,8 +327,8 @@
                             scope.modelMax = scope.max;
                         }
 
-                        var handle1pos = restrict(((scope.modelMin - scope.min) / range) * 100),
-                            handle2pos = restrict(((scope.modelMax - scope.min) / range) * 100);
+                        handle1pos = restrict(((scope.modelMin - scope.min) / range) * 100);
+                        handle2pos = restrict(((scope.modelMax - scope.min) / range) * 100);
 
                         // make sure the model values are within the allowed range
                         scope.modelMin = Math.max(scope.min, scope.modelMin);
@@ -330,33 +342,40 @@
                             scope.filteredModelMax = scope.modelMax;
                         }
 
-                        // check for no range
-                        if (scope.min === scope.max && scope.modelMin == scope.modelMax) {
-
-                            // reposition handles
-                            angular.element(handles[0]).css(pos, '0%');
-                            angular.element(handles[1]).css(pos, '100%');
-
-                            // reposition join
-                            angular.element(join).css(pos, '0%').css(posOpp, '0%');
-
-                        } else {
-
-                            // reposition handles
-                            angular.element(handles[0]).css(pos, handle1pos + '%');
-                            angular.element(handles[1]).css(pos, handle2pos + '%');
-
-                            // reposition join
-                            angular.element(join).css(pos, handle1pos + '%').css(posOpp, (100 - handle2pos) + '%');
-
-                            // ensure min handle can't be hidden behind max handle
-                            if (handle1pos >  95) {
-                                angular.element(handles[0]).css('z-index', 3);
-                            }
-                        }
-
+                        requestAnimationFrame(updateUI);
                     }
 
+                }
+
+                function updateUI() {
+
+                    // check for no range
+                    // TODO: do we really have to check this every frame?
+                    if (scope.min === scope.max && scope.modelMin === scope.modelMax) {
+
+                        // reposition handles
+                        handles[0].css(pos, '0%');
+                        handles[1].css(pos, '100%');
+
+                        // reposition join
+                        join.css(pos, '0%').css(posOpp, '0%');
+
+                    } else {
+
+                        // reposition handles
+                        handles[0].css(pos, handle1pos + '%');
+                        handles[1].css(pos, handle2pos + '%');
+
+                        // reposition join
+                        join.css(pos, handle1pos + '%').css(posOpp, (100 - handle2pos) + '%');
+
+                        // ensure min handle can't be hidden behind max handle
+                        if (handle1pos >  95) {
+                            handles[0].css('z-index', 3);
+                        }
+                    }
+
+                    scheduledFrame = false;
                 }
 
                 function handleMove(index) {
@@ -375,7 +394,7 @@
                             previousProposal = false;
 
                         // stop user accidentally selecting stuff
-                        angular.element('body').bind('selectstart' + eventNamespace, function () {
+                        body.bind('selectstart' + eventNamespace, function () {
                             return false;
                         });
 
@@ -388,7 +407,7 @@
                             $slider.addClass('ngrs-focus ' + handleDownClass);
 
                             // add touch class for MS styling
-                            angular.element('body').addClass('ngrs-touching');
+                            body.addClass('ngrs-touching');
 
                             // listen for mousemove / touchmove document events
                             $document.bind(moveEvent, function (e) {
@@ -479,7 +498,7 @@
 
                                 unbind.off(eventNamespace);
 
-                                angular.element('body').removeClass('ngrs-touching');
+                                body.removeClass('ngrs-touching');
 
                                 // remove down class
                                 $handle.removeClass('ngrs-down');
@@ -512,7 +531,7 @@
                     $slider.off(eventNamespace);
 
                     // unbind from body
-                    angular.element('body').off(eventNamespace);
+                    body.off(eventNamespace);
 
                     // unbind from document
                     $document.off(eventNamespace);
