@@ -350,7 +350,6 @@
                 function updateUI() {
 
                     // check for no range
-                    // TODO: do we really have to check this every frame?
                     if (scope.min === scope.max && scope.modelMin === scope.modelMax) {
 
                         // reposition handles
