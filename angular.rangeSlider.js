@@ -44,7 +44,7 @@
      * @directive
      */
     angular.module('ui-rangeSlider', [])
-        .directive('rangeSlider', function($document, $filter, $log) {
+        .directive('rangeSlider', ["$document", "$filter", "$log", function($document, $filter, $log) {
 
         // test for mouse, pointer or touch
         var EVENT = window.PointerEvent ? 1 : (window.MSPointerEvent ? 2 : ('ontouchend' in document ? 3 : 4)), // 1 = IE11, 2 = IE10, 3 = touch, 4 = mouse
@@ -563,7 +563,7 @@
 
             }
         };
-    });
+    }]);
     
     // requestAnimationFramePolyFill
     // http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
