@@ -110,6 +110,8 @@
                 max: '=',
                 modelMin: '=?',
                 modelMax: '=?',
+                onHandleDown: '&', // calls optional function when handle is grabbed
+                onHandleUp: '&', // calls optional function when handle is released 
                 orientation: '@', // options: horizontal | vertical | vertical left | vertical right
                 step: '@',
                 decimalPlaces: '@',
@@ -392,6 +394,10 @@
                             previousClick = originalClick,
                             previousProposal = false;
 
+                        if (angular.isFunction(scope.onHandleDown)) {
+                            scope.onHandleDown();
+                        }
+
                         // stop user accidentally selecting stuff
                         body.bind('selectstart' + eventNamespace, function () {
                             return false;
@@ -494,6 +500,10 @@
                                 previousClick = currentClick;
 
                             }).bind(offEvent, function () {
+
+                                if (angular.isFunction(scope.onHandleUp)) {
+                                    scope.onHandleUp();
+                                }
 
                                 unbind.off(eventNamespace);
 
