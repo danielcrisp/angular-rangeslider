@@ -44,7 +44,7 @@
      * @directive
      */
     angular.module('ui-rangeSlider', [])
-        .directive('rangeSlider', function($document, $filter, $log) {
+        .directive('rangeSlider', ["$document", "$filter", "$log", function($document, $filter, $log) {
 
         // test for mouse, pointer or touch
         var EVENT = window.PointerEvent ? 1 : (window.MSPointerEvent ? 2 : ('ontouchend' in document ? 3 : 4)), // 1 = IE11, 2 = IE10, 3 = touch, 4 = mouse
@@ -110,6 +110,8 @@
                 max: '=',
                 modelMin: '=?',
                 modelMax: '=?',
+                onHandleDown: '&', // calls optional function when handle is grabbed
+                onHandleUp: '&', // calls optional function when handle is released 
                 orientation: '@', // options: horizontal | vertical | vertical left | vertical right
                 step: '@',
                 decimalPlaces: '@',
@@ -374,6 +376,10 @@
                             previousClick = originalClick,
                             previousProposal = false;
 
+                        if (angular.isFunction(scope.onHandleDown)) {
+                            scope.onHandleDown();
+                        }
+
                         // stop user accidentally selecting stuff
                         angular.element('body').bind('selectstart' + eventNamespace, function () {
                             return false;
@@ -477,6 +483,10 @@
 
                             }).bind(offEvent, function () {
 
+                                if (angular.isFunction(scope.onHandleUp)) {
+                                    scope.onHandleUp();
+                                }
+
                                 unbind.off(eventNamespace);
 
                                 angular.element('body').removeClass('ngrs-touching');
@@ -545,5 +555,17 @@
 
             }
         };
-    });
+    }]);
+    
+    // requestAnimationFramePolyFill
+    // http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/
+    // shim layer with setTimeout fallback
+    window.requestAnimFrame = (function(){
+        return window.requestAnimationFrame    ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame    ||
+            function( callback ){
+                window.setTimeout(callback, 1000 / 60);
+            };
+    })();
 }());
