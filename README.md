@@ -141,6 +141,7 @@ To Do
 - Make it work in older Angular versions
 - Add option to move values with handles
 - Improve behaviour when model values are not valid (e.g. min is greater than max)
+- Improve the dev architecture (add jshint, tests, minification, auto-versioning etc)
 
 
 Known Issues
