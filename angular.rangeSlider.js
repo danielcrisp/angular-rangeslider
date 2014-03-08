@@ -56,7 +56,8 @@
                 step: 0,
                 decimalPlaces: 0,
                 showValues: true,
-                preventEqualMinMax: false
+                preventEqualMinMax: false,
+                attachHandleValues: false
             },
 
             onEvent = (EVENT === 1 ? 'pointerdown' : (EVENT === 2 ? 'MSPointerDown' : (EVENT === 3 ? 'touchstart' : 'mousedown'))) + eventNamespace,
@@ -101,8 +102,10 @@
                            '<div class="ngrs-handle ngrs-handle-max"><i></i></div>',
                            '<div class="ngrs-join"></div>',
                          '</div>',
-                         '<div class="ngrs-value ngrs-value-min" ng-show="showValues">{{filteredModelMin}}</div>',
-                         '<div class="ngrs-value ngrs-value-max" ng-show="showValues">{{filteredModelMax}}</div>',
+												 '<div class="ngrs-value-runner">',
+													 '<div class="ngrs-value ngrs-value-min" ng-show="showValues"><div>{{filteredModelMin}}</div></div>',
+													 '<div class="ngrs-value ngrs-value-max" ng-show="showValues"><div>{{filteredModelMax}}</div></div>',
+												 '</div>',
                        '</div>'].join(''),
             scope: {
                 disabled: '=?',
@@ -119,7 +122,8 @@
                 filterOptions: '@',
                 showValues: '@',
                 pinHandle: '@',
-                preventEqualMinMax: '@'
+                preventEqualMinMax: '@',
+                attachHandleValues: '@'
             },
             link: function(scope, element, attrs, controller) {
 
@@ -129,6 +133,7 @@
 
                 var $slider = angular.element(element),
                     handles = [element.find('.ngrs-handle-min'), element.find('.ngrs-handle-max')],
+                    values = [element.find('.ngrs-value-min'), element.find('.ngrs-value-max')],
                     join = element.find('.ngrs-join'),
                     pos = 'left',
                     posOpp = 'right',
@@ -227,6 +232,17 @@
                     }
                 });
 
+                attrs.$observe('attachHandleValues', function (val) {
+                    if (!angular.isDefined(val)) {
+                        scope.attachHandleValues = defaults.attachHandleValues;
+                    } else {
+                        if (val === 'false') {
+                            scope.attachHandleValues = false;
+                        } else {
+                            scope.attachHandleValues = true;
+                        }
+                    }
+                });
 
 
                 // listen for changes to values
@@ -320,6 +336,11 @@
                         var handle1pos = restrict(((scope.modelMin - scope.min) / range) * 100),
                             handle2pos = restrict(((scope.modelMax - scope.min) / range) * 100);
 
+                        if (scope.attachHandleValues) {
+                          var value1pos = handle1pos,
+                              value2pos = handle2pos;
+                        }
+
                         // make sure the model values are within the allowed range
                         scope.modelMin = Math.max(scope.min, scope.modelMin);
                         scope.modelMax = Math.min(scope.max, scope.modelMax);
@@ -339,6 +360,13 @@
                             angular.element(handles[0]).css(pos, '0%');
                             angular.element(handles[1]).css(pos, '100%');
 
+                            if (scope.attachHandleValues){
+                              // reposition values
+															angular.element('.ngrs-value-runner').addClass('ngrs-attached-handles');
+                              angular.element(values[0]).css(pos, '0%');
+                              angular.element(values[1]).css(pos, '100%');
+                            }
+
                             // reposition join
                             angular.element(join).css(pos, '0%').css(posOpp, '0%');
 
@@ -347,6 +375,14 @@
                             // reposition handles
                             angular.element(handles[0]).css(pos, handle1pos + '%');
                             angular.element(handles[1]).css(pos, handle2pos + '%');
+
+                            if (scope.attachHandleValues) {
+                              // reposition values
+															angular.element('.ngrs-value-runner').addClass('ngrs-attached-handles');
+                              angular.element(values[0]).css(pos, value1pos + '%');
+                              angular.element(values[1]).css(pos, value2pos + '%');
+                              angular.element(values[1]).css(posOpp, 'auto');
+                            }
 
                             // reposition join
                             angular.element(join).css(pos, handle1pos + '%').css(posOpp, (100 - handle2pos) + '%');
