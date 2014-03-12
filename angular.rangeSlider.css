@@ -52,8 +52,6 @@
   background: #fff;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -80,6 +78,9 @@
       VALUE LABELS
   \*------------------------------------*/
   /*------------------------------------*\
+      ATTACHED VALUE RUNNER
+  \*------------------------------------*/
+  /*------------------------------------*\
       VERTICAL SLIDER
   \*------------------------------------*/
   /*------------------------------------*\
@@ -96,8 +97,9 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  -moz-user-select: -moz-none;
   -webkit-user-select: none;
-  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
 }
 /* line 97, scss/angular.rangeSlider.scss */
@@ -117,11 +119,8 @@
   margin: -4px 0 0 0;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
   border-radius: 4px;
   background-color: #2f96b4;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #5bc0de), color-stop(100%, #2f96b4));
   background-image: -webkit-linear-gradient(#5bc0de, #2f96b4);
   background-image: -moz-linear-gradient(#5bc0de, #2f96b4);
   background-image: -o-linear-gradient(#5bc0de, #2f96b4);
@@ -138,8 +137,6 @@
   border: 1px solid #ccc;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
   border-radius: 3px;
   /*------------------------------------*\
       HANDLE ICON
@@ -190,12 +187,31 @@
 .ngrs-range-slider.ngrs-handle-min-down .ngrs-value-min, .ngrs-range-slider.ngrs-handle-max-down .ngrs-value-max {
   color: #333;
 }
-/* line 206, scss/angular.rangeSlider.scss */
+/* line 205, scss/angular.rangeSlider.scss */
+.ngrs-range-slider .ngrs-attached-handles {
+  margin: 0 9px;
+  position: relative;
+  /*------------------------------------*\
+      ATTACHED VALUE RUNNER LABELS
+  \*------------------------------------*/
+}
+/* line 212, scss/angular.rangeSlider.scss */
+.ngrs-range-slider .ngrs-attached-handles .ngrs-value-max {
+  text-align: left;
+}
+/* line 215, scss/angular.rangeSlider.scss */
+.ngrs-range-slider .ngrs-attached-handles .ngrs-value > div {
+  margin: 0 0 0 -50%;
+}
+/* line 224, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical {
   width: 28px;
   margin: 10px auto;
   /*------------------------------------*\
       RUNNER
+  \*------------------------------------*/
+  /*------------------------------------*\
+      ATTACHED VALUE RUNNER
   \*------------------------------------*/
   /*------------------------------------*\
       JOIN
@@ -216,13 +232,22 @@
       VERTICAL RIGHT SLIDER
   \*------------------------------------*/
 }
-/* line 214, scss/angular.rangeSlider.scss */
+/* line 232, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical .ngrs-runner {
   margin: 9px 0;
   height: 300px;
   width: 18px;
 }
-/* line 224, scss/angular.rangeSlider.scss */
+/* line 242, scss/angular.rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical .ngrs-value-runner.ngrs-attached-handles {
+  padding: 4px;
+  position: absolute;
+  top: 0;
+  margin: 9px 0;
+  height: 300px;
+  left: 100%;
+}
+/* line 256, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical .ngrs-join {
   width: 8px;
   height: auto;
@@ -232,84 +257,95 @@
   right: auto;
   margin: 0 0 0 -4px;
 }
-/* line 238, scss/angular.rangeSlider.scss */
+/* line 270, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical .ngrs-handle {
   width: 100%;
   height: 18px;
   margin: -9px 0 0 0;
 }
-/* line 249, scss/angular.rangeSlider.scss */
+/* line 281, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical .ngrs-handle-min i {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFFJREFUeNpiYEAFPFAMB0xIbEYgdoJiRpggM5ICUyBWhZoA0vgMWYEsENsg6ZQE4ldA/AmkkguIHZGNhQKQGBfIBHcgFmTABCxALMJAMQAIMAAcNgVQJ7t7JQAAAABJRU5ErkJggg==");
 }
-/* line 256, scss/angular.rangeSlider.scss */
+/* line 288, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical .ngrs-handle-max i {
   background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFZJREFUeNpiYKAUMAKxDxBL4ZB/xgQk9gHxDyySILF9zEDiNxC/A2JVNAW7gfgtM5TzCYhZgFgCyr8IxNdADGZk+4BYGoi/APEBIP6PzVE8UAwHAAEGAArIDvzRFIA6AAAAAElFTkSuQmCC");
 }
-/* line 266, scss/angular.rangeSlider.scss */
+/* line 298, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical .ngrs-value {
   top: 0;
   left: 100%;
   padding: 0 0 0 5px;
 }
-/* line 271, scss/angular.rangeSlider.scss */
+/* line 303, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical .ngrs-value.ngrs-value-max {
   top: auto;
   bottom: 0;
   right: auto;
   text-align: left;
 }
-/* line 283, scss/angular.rangeSlider.scss */
+/* line 312, scss/angular.rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical .ngrs-attached-handles .ngrs-value-max, .ngrs-range-slider.ngrs-vertical .ngrs-attached-handles .ngrs-value-min {
+  margin: -50% 0 0;
+}
+/* line 321, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical.ngrs-left {
   margin: 10px 0;
 }
-/* line 291, scss/angular.rangeSlider.scss */
+/* line 329, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical.ngrs-right {
   margin: 10px 0 10px auto;
+  /*------------------------------------*\
+      ATTACHED VALUE RUNNER
+  \*------------------------------------*/
   /*------------------------------------*\
       VALUE LABELS
   \*------------------------------------*/
 }
-/* line 298, scss/angular.rangeSlider.scss */
+/* line 335, scss/angular.rangeSlider.scss */
+.ngrs-range-slider.ngrs-vertical.ngrs-right .ngrs-attached-handles {
+  left: 0%;
+}
+/* line 343, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical.ngrs-right .ngrs-value {
   left: auto;
   right: 100%;
   padding: 0 5px 0 0;
   text-align: right;
 }
-/* line 304, scss/angular.rangeSlider.scss */
+/* line 349, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-vertical.ngrs-right .ngrs-value.ngrs-value-max {
   text-align: right;
 }
-/* line 316, scss/angular.rangeSlider.scss */
+/* line 361, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-focus {
   border-color: rgba(82, 168, 236, 0.8);
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 }
-/* line 327, scss/angular.rangeSlider.scss */
+/* line 372, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-disabled, .ngrs-range-slider.ngrs-disabled.ngrs-focus {
   border-color: #ddd;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
 }
-/* line 333, scss/angular.rangeSlider.scss */
+/* line 378, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-disabled .ngrs-handle {
   background: #fff;
   border-color: #ddd;
 }
-/* line 337, scss/angular.rangeSlider.scss */
+/* line 382, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-disabled .ngrs-handle i {
   background: none !important;
   cursor: default;
 }
-/* line 343, scss/angular.rangeSlider.scss */
+/* line 388, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-disabled .ngrs-join {
   background: #ddd;
 }
-/* line 347, scss/angular.rangeSlider.scss */
+/* line 392, scss/angular.rangeSlider.scss */
 .ngrs-range-slider.ngrs-disabled .ngrs-value {
   color: #ddd;
 }
@@ -317,7 +353,7 @@
 /*------------------------------------*\
     TOUCH STATE
 \*------------------------------------*/
-/* line 359, scss/angular.rangeSlider.scss */
+/* line 404, scss/angular.rangeSlider.scss */
 body.ngrs-touching {
   -ms-touch-action: none;
 }
