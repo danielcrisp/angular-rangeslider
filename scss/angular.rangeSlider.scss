@@ -202,7 +202,7 @@ $prefix: 'ngrs-';
   /*------------------------------------*\
       ATTACHED VALUE RUNNER
   \*------------------------------------*/
-	&.#{$prefix}attached-handles {
+	.#{$prefix}attached-handles {
 			margin: 0 9px;
 			position: relative;
 

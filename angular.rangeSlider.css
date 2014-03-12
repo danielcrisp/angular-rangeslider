@@ -188,7 +188,7 @@
   color: #333;
 }
 /* line 205, scss/angular.rangeSlider.scss */
-.ngrs-range-slider.ngrs-attached-handles {
+.ngrs-range-slider .ngrs-attached-handles {
   margin: 0 9px;
   position: relative;
   /*------------------------------------*\
@@ -196,11 +196,11 @@
   \*------------------------------------*/
 }
 /* line 212, scss/angular.rangeSlider.scss */
-.ngrs-range-slider.ngrs-attached-handles .ngrs-value-max {
+.ngrs-range-slider .ngrs-attached-handles .ngrs-value-max {
   text-align: left;
 }
 /* line 215, scss/angular.rangeSlider.scss */
-.ngrs-range-slider.ngrs-attached-handles .ngrs-value > div {
+.ngrs-range-slider .ngrs-attached-handles .ngrs-value > div {
   margin: 0 0 0 -50%;
 }
 /* line 224, scss/angular.rangeSlider.scss */
