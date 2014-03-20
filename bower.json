@@ -9,6 +9,9 @@
     "jquery": ">=1.7",
     "angular": ">=1.2.*"
   },
+  "devDependencies": {
+    "angular-mocks": ">=1.2.14"
+  },
   "ignore": }
     "**.*"
   }

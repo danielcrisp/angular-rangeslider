@@ -148,6 +148,21 @@ or vertical:
     <div range-slider min="0" max="100" model-min="min" model-max="max" attach-handle-values="true" orientation="vertical"></div>
 ![Attached handles vertical example](screenshots/attached-handles-vertical.png)
 
+Testing
+-------
+
+Install karma
+
+```bash
+$ npm install karma
+$ sudo npm install karma-cli -g
+```
+
+Run karma
+```bash
+$ karma start
+```
+
 To Do
 -----
 
