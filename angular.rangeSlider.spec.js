@@ -16,6 +16,6 @@ describe('Range Slider', function() {
   }
 
   it('compiles', function() {
-    var elm = compileDirective('<div range-slider min="0" max="100" model-min="min" model-max="max"></div>');
+    var elm = compileDirective('<div range-slider min="0" max="100" model-min="min" model-max="max"></div>', $scope);
   })
 });
