@@ -259,7 +259,7 @@ $scope.demo8 = {
 			<div class="span12">
 				<h4>The slider</h4>
 				<p>You can make the values move with the handles as they slide by setting attach-handle-values equal to true.</p>
-				<div range-slider min="0" max="10000" model-min="demo8.min" model-max="demo8.max" attach-handle-values="true"</div>
+				<div range-slider min="0" max="10000" model-min="demo8.min" model-max="demo8.max" attach-handle-values="true"></div>
 			</div>
 			<div class="span12">
 				<h4>The HTML</h4>
@@ -269,11 +269,9 @@ $scope.demo8 = {
 
 	</div>
 
-	<!-- we need jQuery -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-	<!-- and Angular, of course -->
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
-	<!-- and out directive code -->
+	<!-- we need Angular -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
+	<!-- and our directive code -->
 	<script src="../angular.rangeSlider.js"></script>
 	<!-- a basic app and controller -->
 	<script>
