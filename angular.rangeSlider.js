@@ -271,9 +271,9 @@
 
                 function setDisabledStatus (status) {
                     if (status) {
-                        $slider.addClass('disabled');
+                        $slider.addClass('ngrs-disabled');
                     } else {
-                        $slider.removeClass('disabled');
+                        $slider.removeClass('ngrs-disabled');
                     }
                 }
 
