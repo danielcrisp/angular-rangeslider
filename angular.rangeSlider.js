@@ -123,7 +123,8 @@
                 showValues: '@',
                 pinHandle: '@',
                 preventEqualMinMax: '@',
-                attachHandleValues: '@'
+                attachHandleValues: '@',
+                callBackMethod:'&callback'
             },
             link: function(scope, element, attrs, controller) {
 
@@ -521,6 +522,7 @@
 
                                 if (angular.isFunction(scope.onHandleUp)) {
                                     scope.onHandleUp();
+                                    scope.callBackMethod();
                                 }
 
                                 unbind.off(eventNamespace);
