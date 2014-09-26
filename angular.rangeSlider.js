@@ -271,9 +271,9 @@
 
                 function setDisabledStatus (status) {
                     if (status) {
-                        $slider.addClass('disabled');
+                        $slider.addClass('ngrs-disabled');
                     } else {
-                        $slider.removeClass('disabled');
+                        $slider.removeClass('ngrs-disabled');
                     }
                 }
 
@@ -413,7 +413,9 @@
                             previousProposal = false;
 
                         if (angular.isFunction(scope.onHandleDown)) {
-                            scope.onHandleDown();
+                            scope.$apply(function() {
+                                scope.onHandleDown();
+                            });                            
                         }
 
                         // stop user accidentally selecting stuff
@@ -520,7 +522,9 @@
                             }).bind(offEvent, function () {
 
                                 if (angular.isFunction(scope.onHandleUp)) {
-                                    scope.onHandleUp();
+                                    scope.$apply(function() {
+                                        scope.onHandleUp();
+                                    });
                                 }
 
                                 unbind.off(eventNamespace);
