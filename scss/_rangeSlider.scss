@@ -3,26 +3,26 @@
 \*------------------------------------*/
 
 // handle dimensions
-$handleWidth: 18px;
-$handleHeight: 18px;
+$ngrs-handleWidth: 18px;
+$ngrs-handleHeight: 18px;
 
 // thickness of the join line
-$joinWeight: 8px;
+$ngrs-joinWeight: 8px;
 
 // padding between the border and the handles
-$padding: 4px;
+$ngrs-padding: 4px;
 
 // define the height of the slider when in vertical mode
-$verticalHeight: 300px;
+$ngrs-verticalHeight: 300px;
 
 // prefix
-$prefix: 'ngrs-';
+$ngrs-prefix: 'ngrs-';
 
 /*------------------------------------*\
     THE CSS
 \*------------------------------------*/
 
-.#{$prefix}range-slider {
+.#{$ngrs-prefix}range-slider {
 
 	// RESETS
 	&, * {
@@ -35,7 +35,7 @@ $prefix: 'ngrs-';
 
 	position: relative;
 	margin: 10px 0 30px; // allow enough bottom margin to contain values
-	padding: $padding;
+	padding: $ngrs-padding;
 
 	border: 1px solid #ccc;
 	background: #fff;
@@ -50,26 +50,26 @@ $prefix: 'ngrs-';
       RUNNER
   \*------------------------------------*/
 
-	.#{$prefix}runner {
+	.#{$ngrs-prefix}runner {
 		position: relative;
-		margin: 0 $handleWidth / 2;
-		height: $handleHeight;
+		margin: 0 $ngrs-handleWidth / 2;
+		height: $ngrs-handleHeight;
 	}
 
   /*------------------------------------*\
       JOIN (connects the two handles)
   \*------------------------------------*/
 
-	.#{$prefix}join {
+	.#{$ngrs-prefix}join {
 		position: absolute;
 		z-index: 1;
 		top: 50%;
 		left: 0;
 		right: 100%;
-		height: $joinWeight;
-		margin: (-$joinWeight / 2) 0 0 0;
+		height: $ngrs-joinWeight;
+		margin: (-$ngrs-joinWeight / 2) 0 0 0;
 
-		@include border-radius($joinWeight / 2);
+		@include border-radius($ngrs-joinWeight / 2);
 		background-color: #2f96b4;
 		@include background-image(linear-gradient(#5bc0de, #2f96b4)); // primary: #08c, #04c | alternative: #5bc0de, #2f96b4
 	}
@@ -78,12 +78,12 @@ $prefix: 'ngrs-';
       HANDLE
   \*------------------------------------*/
 
-	.#{$prefix}handle {
+	.#{$ngrs-prefix}handle {
 		position: absolute;
 		z-index: 2;
 		height: 100%;
-		width: $handleWidth;
-		margin: 0 0 0 (-$handleWidth / 2);
+		width: $ngrs-handleWidth;
+		margin: 0 0 0 (-$ngrs-handleWidth / 2);
 		background: #efefef;
 		border: 1px solid #ccc;
 		@include border-radius(3px);
@@ -100,14 +100,14 @@ $prefix: 'ngrs-';
 			cursor: pointer;
 		}
 
-		&.#{$prefix}over {
+		&.#{$ngrs-prefix}over {
 			i {
 				background-position: 50% 50%;
 			}
 		}
 
-		&.#{$prefix}down {
-			@include box-shadow(0 0 $padding rgba(0, 0, 0, 0.2));
+		&.#{$ngrs-prefix}down {
+			@include box-shadow(0 0 $ngrs-padding rgba(0, 0, 0, 0.2));
 		}
 
 	}
@@ -116,14 +116,14 @@ $prefix: 'ngrs-';
       HANDLE SPECIFICS
   \*------------------------------------*/
 
-	.#{$prefix}handle-min {
+	.#{$ngrs-prefix}handle-min {
 		i {
 			// represents a left arrow
 			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFNJREFUeNpiYMAEXEDsA+OwoEnKALETEHOgK2AEYhMgNkQ3DqSAB6pLAot1DExIJmAFzED8C4hvQdnIppyFKYCBp0D8CohloVafxWUqN7I3AQIMAKw6B24pOi8lAAAAAElFTkSuQmCC');
 		}
 	}
 
-	.#{$prefix}handle-max {
+	.#{$ngrs-prefix}handle-max {
 		i {
 			// represents a right arrow
 			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFdJREFUeNpiYEAAHyDmYkADzEhsByBWA+K3QPwJmwJjIGYBYlUgZgLi59gUwIAkEEsD8VMmBtyAkQFqJDZwAYjPAPE/dAU/gHg/ED/GpgvkTW50QYAAAwADfwrM5sqplgAAAABJRU5ErkJggg==');
@@ -134,7 +134,7 @@ $prefix: 'ngrs-';
       VALUE LABELS
   \*------------------------------------*/
 
-	.#{$prefix}value {
+	.#{$ngrs-prefix}value {
 		position: absolute;
 		top: 100%;
 		left: 0;
@@ -142,32 +142,32 @@ $prefix: 'ngrs-';
 		font-size: 12px;
 		color: #999;
 
-		&.#{$prefix}value-max {
+		&.#{$ngrs-prefix}value-max {
 			left: auto;
 			right: 0;
 			text-align: right;
 		}
 	}
 
-	&.#{$prefix}handle-min-down .#{$prefix}value-min,
-	&.#{$prefix}handle-max-down .#{$prefix}value-max {
+	&.#{$ngrs-prefix}handle-min-down .#{$ngrs-prefix}value-min,
+	&.#{$ngrs-prefix}handle-max-down .#{$ngrs-prefix}value-max {
 		color: #333;
 	}
 
   /*------------------------------------*\
       ATTACHED VALUE RUNNER
   \*------------------------------------*/
-	.#{$prefix}attached-handles {
+	.#{$ngrs-prefix}attached-handles {
 			margin: 0 9px;
 			position: relative;
 
     /*------------------------------------*\
         ATTACHED VALUE RUNNER LABELS
     \*------------------------------------*/
-		.#{$prefix}value-max {
+		.#{$ngrs-prefix}value-max {
 			text-align: left;
 		}
-		.#{$prefix}value > div {
+		.#{$ngrs-prefix}value > div {
 			margin: 0 0 0 -50%;
 		}
 	}
@@ -176,30 +176,30 @@ $prefix: 'ngrs-';
       VERTICAL SLIDER
   \*------------------------------------*/
 
-	&.#{$prefix}vertical {
-		width: $handleWidth + ($padding * 2) + 2; // additional 2 is for the border
+	&.#{$ngrs-prefix}vertical {
+		width: $ngrs-handleWidth + ($ngrs-padding * 2) + 2; // additional 2 is for the border
 		margin: 10px auto;
 
     /*------------------------------------*\
         RUNNER
     \*------------------------------------*/
 
-		.#{$prefix}runner {
-			margin: $handleHeight / 2 0;
-			height: $verticalHeight;
-			width: $handleWidth;
+		.#{$ngrs-prefix}runner {
+			margin: $ngrs-handleHeight / 2 0;
+			height: $ngrs-verticalHeight;
+			width: $ngrs-handleWidth;
 		}
 
     /*------------------------------------*\
         ATTACHED VALUE RUNNER
     \*------------------------------------*/
-		.#{$prefix}value-runner {
-			&.#{$prefix}attached-handles {
-				padding: $padding;
+		.#{$ngrs-prefix}value-runner {
+			&.#{$ngrs-prefix}attached-handles {
+				padding: $ngrs-padding;
 				position: absolute;
 				top: 0;
-				margin: $handleHeight / 2 0;
-				height: $verticalHeight;
+				margin: $ngrs-handleHeight / 2 0;
+				height: $ngrs-verticalHeight;
 				left: 100%;
 			}
 		}
@@ -208,38 +208,38 @@ $prefix: 'ngrs-';
         JOIN
     \*------------------------------------*/
 
-		.#{$prefix}join {
-			width: $joinWeight;
+		.#{$ngrs-prefix}join {
+			width: $ngrs-joinWeight;
 			height: auto;
 			top: 0;
 			bottom: 100%;
 			left: 50%;
 			right: auto;
-			margin: 0 0 0 (-$joinWeight / 2);
+			margin: 0 0 0 (-$ngrs-joinWeight / 2);
 		}
 
     /*------------------------------------*\
         HANDLE
     \*------------------------------------*/
 
-		.#{$prefix}handle {
+		.#{$ngrs-prefix}handle {
 			width: 100%;
-			height: $handleHeight;
-			margin: (-$handleHeight / 2) 0 0 0;
+			height: $ngrs-handleHeight;
+			margin: (-$ngrs-handleHeight / 2) 0 0 0;
 		}
 
     /*------------------------------------*\
         HANDLE SPECIFICS
     \*------------------------------------*/
 
-		.#{$prefix}handle-min {
+		.#{$ngrs-prefix}handle-min {
 			i {
 				// represents an up arrow
 				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFFJREFUeNpiYEAFPFAMB0xIbEYgdoJiRpggM5ICUyBWhZoA0vgMWYEsENsg6ZQE4ldA/AmkkguIHZGNhQKQGBfIBHcgFmTABCxALMJAMQAIMAAcNgVQJ7t7JQAAAABJRU5ErkJggg==');
 			}
 		}
 
-		.#{$prefix}handle-max {
+		.#{$ngrs-prefix}handle-max {
 			i {
 				// represents a down arrow
 				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFZJREFUeNpiYKAUMAKxDxBL4ZB/xgQk9gHxDyySILF9zEDiNxC/A2JVNAW7gfgtM5TzCYhZgFgCyr8IxNdADGZk+4BYGoi/APEBIP6PzVE8UAwHAAEGAArIDvzRFIA6AAAAAElFTkSuQmCC');
@@ -250,12 +250,12 @@ $prefix: 'ngrs-';
         VALUE LABELS
     \*------------------------------------*/
 
-		.#{$prefix}value {
+		.#{$ngrs-prefix}value {
 			top: 0;
 			left: 100%;
 			padding: 0 0 0 5px;
 
-			&.#{$prefix}value-max {
+			&.#{$ngrs-prefix}value-max {
 				top: auto;
 				bottom: 0;
 				right: auto;
@@ -263,8 +263,8 @@ $prefix: 'ngrs-';
 			}
 		}
 
-		.#{$prefix}attached-handles {
-			.#{$prefix}value-max, .#{$prefix}value-min {
+		.#{$ngrs-prefix}attached-handles {
+			.#{$ngrs-prefix}value-max, .#{$ngrs-prefix}value-min {
 				margin: -50% 0 0;
 			}
 		}
@@ -273,7 +273,7 @@ $prefix: 'ngrs-';
         VERTICAL LEFT SLIDER
     \*------------------------------------*/
 
-		&.#{$prefix}left {
+		&.#{$ngrs-prefix}left {
 			margin: 10px 0;
 		}
 
@@ -281,13 +281,13 @@ $prefix: 'ngrs-';
         VERTICAL RIGHT SLIDER
     \*------------------------------------*/
 
-		&.#{$prefix}right {
+		&.#{$ngrs-prefix}right {
 			margin: 10px 0 10px auto;
 
       /*------------------------------------*\
           ATTACHED VALUE RUNNER
       \*------------------------------------*/
-			.#{$prefix}attached-handles {
+			.#{$ngrs-prefix}attached-handles {
 				left: 0%;
 			}
 
@@ -295,13 +295,13 @@ $prefix: 'ngrs-';
           VALUE LABELS
       \*------------------------------------*/
 
-			.#{$prefix}value {
+			.#{$ngrs-prefix}value {
 				left: auto;
 				right: 100%;
 				padding: 0 5px 0 0;
 				text-align: right;
 
-				&.#{$prefix}value-max {
+				&.#{$ngrs-prefix}value-max {
 					text-align: right;
 				}
 			}
@@ -313,7 +313,7 @@ $prefix: 'ngrs-';
       FOCUS STATE
   \*------------------------------------*/
 
-	&.#{$prefix}focus {
+	&.#{$ngrs-prefix}focus {
 		border-color: rgba(82, 168, 236, 0.8);
 		@include box-shadow(inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(82,168,236,0.6));
 	}
@@ -322,15 +322,15 @@ $prefix: 'ngrs-';
       DISABLED STATE
   \*------------------------------------*/
 
-	&.#{$prefix}disabled {
+	&.#{$ngrs-prefix}disabled {
 
-		&, &.#{$prefix}focus {
+		&, &.#{$ngrs-prefix}focus {
 			// make sure the focus state is not used
 			border-color: #ddd;
 			@include box-shadow(none);
 		}
 
-		.#{$prefix}handle {
+		.#{$ngrs-prefix}handle {
 			background: #fff;
 			border-color: #ddd;
 
@@ -340,11 +340,11 @@ $prefix: 'ngrs-';
 			}
 		}
 
-		.#{$prefix}join {
+		.#{$ngrs-prefix}join {
 			background: #ddd;
 		}
 
-		.#{$prefix}value {
+		.#{$ngrs-prefix}value {
 			color: #ddd;
 		}
 
@@ -356,7 +356,7 @@ $prefix: 'ngrs-';
     TOUCH STATE
 \*------------------------------------*/
 
-body.#{$prefix}touching {
+body.#{$ngrs-prefix}touching {
 	// prevents the user from panning or zooming while they are using the slider
 	-ms-touch-action: none;
 }
