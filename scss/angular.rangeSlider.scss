@@ -1,7 +1,7 @@
 /**
  * 	Angular RangeSlider SCSS
  * 
- *	Version: 0.0.7
+ *	Version: 0.0.8
  *
  * 	Author: Daniel Crisp, danielcrisp.com
  *
@@ -80,19 +80,19 @@ $prefix: 'ngrs-';
 	position: relative;
 	margin: 10px 0 30px; // allow enough bottom margin to contain values
 	padding: $padding;
-	
+
 	border: 1px solid #ccc;
 	background: #fff;
 
 	@include border-radius(4px);
 	@include box-shadow(inset 0 1px 1px rgba(0, 0, 0, 0.075));
 	@include transition(border linear .2s, box-shadow linear .2s);
-	
+
 	-webkit-tap-highlight-color: rgba(0,0,0,0);
 
-	/*------------------------------------*\
-	    RUNNER
-	\*------------------------------------*/
+  /*------------------------------------*\
+      RUNNER
+  \*------------------------------------*/
 
 	.#{$prefix}runner {
 		position: relative;
@@ -100,9 +100,9 @@ $prefix: 'ngrs-';
 		height: $handleHeight;
 	}
 
-	/*------------------------------------*\
-	    JOIN (connects the two handles)
-	\*------------------------------------*/
+  /*------------------------------------*\
+      JOIN (connects the two handles)
+  \*------------------------------------*/
 
 	.#{$prefix}join {
 		position: absolute;
@@ -118,9 +118,9 @@ $prefix: 'ngrs-';
 		@include background-image(linear-gradient(#5bc0de, #2f96b4)); // primary: #08c, #04c | alternative: #5bc0de, #2f96b4
 	}
 
-	/*------------------------------------*\
-	    HANDLE
-	\*------------------------------------*/
+  /*------------------------------------*\
+      HANDLE
+  \*------------------------------------*/
 
 	.#{$prefix}handle {
 		position: absolute;
@@ -132,9 +132,9 @@ $prefix: 'ngrs-';
 		border: 1px solid #ccc;
 		@include border-radius(3px);
 
-		/*------------------------------------*\
-		    HANDLE ICON
-		\*------------------------------------*/
+    /*------------------------------------*\
+        HANDLE ICON
+    \*------------------------------------*/
 
 		i {
 			display: block;
@@ -144,8 +144,7 @@ $prefix: 'ngrs-';
 			cursor: pointer;
 		}
 
-		.ngrs-no-touch &:hover,
-		&.#{$prefix}down {
+		&.#{$prefix}over {
 			i {
 				background-position: 50% 50%;
 			}
@@ -157,9 +156,9 @@ $prefix: 'ngrs-';
 
 	}
 
-	/*------------------------------------*\
-	    HANDLE SPECIFICS
-	\*------------------------------------*/
+  /*------------------------------------*\
+      HANDLE SPECIFICS
+  \*------------------------------------*/
 
 	.#{$prefix}handle-min {
 		i {
@@ -167,17 +166,17 @@ $prefix: 'ngrs-';
 			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFNJREFUeNpiYMAEXEDsA+OwoEnKALETEHOgK2AEYhMgNkQ3DqSAB6pLAot1DExIJmAFzED8C4hvQdnIppyFKYCBp0D8CohloVafxWUqN7I3AQIMAKw6B24pOi8lAAAAAElFTkSuQmCC');
 		}
 	}
-	
+
 	.#{$prefix}handle-max {
 		i {
 			// represents a right arrow
 			background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFdJREFUeNpiYEAAHyDmYkADzEhsByBWA+K3QPwJmwJjIGYBYlUgZgLi59gUwIAkEEsD8VMmBtyAkQFqJDZwAYjPAPE/dAU/gHg/ED/GpgvkTW50QYAAAwADfwrM5sqplgAAAABJRU5ErkJggg==');
 		}
 	}
-	
-	/*------------------------------------*\
-	    VALUE LABELS
-	\*------------------------------------*/
+
+  /*------------------------------------*\
+      VALUE LABELS
+  \*------------------------------------*/
 
 	.#{$prefix}value {
 		position: absolute;
@@ -199,17 +198,35 @@ $prefix: 'ngrs-';
 		color: #333;
 	}
 
-	/*------------------------------------*\
-	    VERTICAL SLIDER
-	\*------------------------------------*/
+  /*------------------------------------*\
+      ATTACHED VALUE RUNNER
+  \*------------------------------------*/
+	.#{$prefix}attached-handles {
+			margin: 0 9px;
+			position: relative;
+
+    /*------------------------------------*\
+        ATTACHED VALUE RUNNER LABELS
+    \*------------------------------------*/
+		.#{$prefix}value-max {
+			text-align: left;
+		}
+		.#{$prefix}value > div {
+			margin: 0 0 0 -50%;
+		}
+	}
+
+  /*------------------------------------*\
+      VERTICAL SLIDER
+  \*------------------------------------*/
 
 	&.#{$prefix}vertical {
 		width: $handleWidth + ($padding * 2) + 2; // additional 2 is for the border
-		margin: 10px auto;		
+		margin: 10px auto;
 
-		/*------------------------------------*\
-		    RUNNER
-		\*------------------------------------*/
+    /*------------------------------------*\
+        RUNNER
+    \*------------------------------------*/
 
 		.#{$prefix}runner {
 			margin: $handleHeight / 2 0;
@@ -217,9 +234,23 @@ $prefix: 'ngrs-';
 			width: $handleWidth;
 		}
 
-		/*------------------------------------*\
-		    JOIN
-		\*------------------------------------*/
+    /*------------------------------------*\
+        ATTACHED VALUE RUNNER
+    \*------------------------------------*/
+		.#{$prefix}value-runner {
+			&.#{$prefix}attached-handles {
+				padding: $padding;
+				position: absolute;
+				top: 0;
+				margin: $handleHeight / 2 0;
+				height: $verticalHeight;
+				left: 100%;
+			}
+		}
+
+    /*------------------------------------*\
+        JOIN
+    \*------------------------------------*/
 
 		.#{$prefix}join {
 			width: $joinWeight;
@@ -231,19 +262,19 @@ $prefix: 'ngrs-';
 			margin: 0 0 0 (-$joinWeight / 2);
 		}
 
-		/*------------------------------------*\
-		    HANDLE
-		\*------------------------------------*/
+    /*------------------------------------*\
+        HANDLE
+    \*------------------------------------*/
 
 		.#{$prefix}handle {
 			width: 100%;
 			height: $handleHeight;
 			margin: (-$handleHeight / 2) 0 0 0;
 		}
-		
-		/*------------------------------------*\
-		    HANDLE SPECIFICS
-		\*------------------------------------*/
+
+    /*------------------------------------*\
+        HANDLE SPECIFICS
+    \*------------------------------------*/
 
 		.#{$prefix}handle-min {
 			i {
@@ -251,7 +282,7 @@ $prefix: 'ngrs-';
 				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAFFJREFUeNpiYEAFPFAMB0xIbEYgdoJiRpggM5ICUyBWhZoA0vgMWYEsENsg6ZQE4ldA/AmkkguIHZGNhQKQGBfIBHcgFmTABCxALMJAMQAIMAAcNgVQJ7t7JQAAAABJRU5ErkJggg==');
 			}
 		}
-		
+
 		.#{$prefix}handle-max {
 			i {
 				// represents a down arrow
@@ -259,9 +290,9 @@ $prefix: 'ngrs-';
 			}
 		}
 
-		/*------------------------------------*\
-		    VALUE LABELS
-		\*------------------------------------*/
+    /*------------------------------------*\
+        VALUE LABELS
+    \*------------------------------------*/
 
 		.#{$prefix}value {
 			top: 0;
@@ -276,24 +307,37 @@ $prefix: 'ngrs-';
 			}
 		}
 
-		/*------------------------------------*\
-		    VERTICAL LEFT SLIDER
-		\*------------------------------------*/
+		.#{$prefix}attached-handles {
+			.#{$prefix}value-max, .#{$prefix}value-min {
+				margin: -50% 0 0;
+			}
+		}
+
+    /*------------------------------------*\
+        VERTICAL LEFT SLIDER
+    \*------------------------------------*/
 
 		&.#{$prefix}left {
 			margin: 10px 0;
 		}
-		
-		/*------------------------------------*\
-		    VERTICAL RIGHT SLIDER
-		\*------------------------------------*/
+
+    /*------------------------------------*\
+        VERTICAL RIGHT SLIDER
+    \*------------------------------------*/
 
 		&.#{$prefix}right {
 			margin: 10px 0 10px auto;
 
-			/*------------------------------------*\
-			    VALUE LABELS
-			\*------------------------------------*/
+      /*------------------------------------*\
+          ATTACHED VALUE RUNNER
+      \*------------------------------------*/
+			.#{$prefix}attached-handles {
+				left: 0%;
+			}
+
+      /*------------------------------------*\
+          VALUE LABELS
+      \*------------------------------------*/
 
 			.#{$prefix}value {
 				left: auto;
@@ -309,18 +353,18 @@ $prefix: 'ngrs-';
 		}
 	}
 
-	/*------------------------------------*\
-	    FOCUS STATE
-	\*------------------------------------*/
+  /*------------------------------------*\
+      FOCUS STATE
+  \*------------------------------------*/
 
 	&.#{$prefix}focus {
 		border-color: rgba(82, 168, 236, 0.8);
 		@include box-shadow(inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(82,168,236,0.6));
 	}
 
-	/*------------------------------------*\
-	    DISABLED STATE
-	\*------------------------------------*/
+  /*------------------------------------*\
+      DISABLED STATE
+  \*------------------------------------*/
 
 	&.#{$prefix}disabled {
 
