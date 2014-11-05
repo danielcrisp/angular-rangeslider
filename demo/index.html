@@ -301,8 +301,8 @@ $scope.demo8 = {
 				$scope.demo3 = {
 				    rangeMin: 10,
 				    rangeMax: 1500,
-				    min: 1500,
-				    max: 1500,
+				    min: 80,
+				    max: 1000,
 				    disabled: false
 				};
 
@@ -310,7 +310,7 @@ $scope.demo8 = {
 				$scope.toggleDemo3 = function () {
 					// toggle true / false
 					$scope.demo3.disabled = !$scope.demo3.disabled;
-				}
+				};
 
 				$scope.demo4 = {
 				    min: 300,
@@ -334,6 +334,11 @@ $scope.demo8 = {
 					},
 					minPrice: 1000,
 					maxPrice: 4000
+				};
+
+        		$scope.demo8 = {
+					min: 3000,
+					max: 5000
 				};
 
         	}

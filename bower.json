@@ -1,12 +1,12 @@
 {
   "name": "angular-rangeslider",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": [
     "./angular.rangeSlider.js",
     "./angular.rangeSlider.css"
   ],
   "dependencies": {
     "jquery": ">=1.7",
-    "angular": ">=1.2.*"
+    "angular": ">=1.1.*"
   }
 }

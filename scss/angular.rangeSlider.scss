@@ -1,7 +1,7 @@
 /**
  * 	Angular RangeSlider SCSS
  * 
- *	Version: 0.0.7
+ *	Version: 0.0.8
  *
  * 	Author: Daniel Crisp, danielcrisp.com
  *
@@ -144,8 +144,7 @@ $prefix: 'ngrs-';
 			cursor: pointer;
 		}
 
-		.ngrs-no-touch &:hover,
-		&.#{$prefix}down {
+		&.#{$prefix}over {
 			i {
 				background-position: 50% 50%;
 			}
