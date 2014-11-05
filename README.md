@@ -18,6 +18,10 @@ This directive was written for a project completed way back in 2013. I've not ne
 
 If anyone would like to become a collaborator please let me know: [@danielcrisp82](https://twitter.com/danielcrisp82)
 
+Bower
+-----
+
+    $ bower install angular-rangeslider
 
 GitHub Pages
 ------------
