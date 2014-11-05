@@ -1,7 +1,7 @@
 /*
  *  Angular RangeSlider Directive
  * 
- *  Version: 0.0.9
+ *  Version: 0.0.10
  *
  *  Author: Daniel Crisp, danielcrisp.com
  *
@@ -37,6 +37,9 @@
 
 (function() {
     'use strict';
+
+    // check if we need to support legacy angular
+    var legacySupport = (angular.version.major === 1 && angular.version.minor === 0);
 
     /**
      * RangeSlider, allows user to define a range of values using a slider
@@ -107,7 +110,33 @@
                 isNumber = function(n) {
                     // console.log(n);
                     return !isNaN(parseFloat(n)) && isFinite(n);
+                },
+
+                scopeOptions = {
+                    disabled: '=?',
+                    min: '=',
+                    max: '=',
+                    modelMin: '=?',
+                    modelMax: '=?',
+                    onHandleDown: '&', // calls optional function when handle is grabbed
+                    onHandleUp: '&', // calls optional function when handle is released 
+                    orientation: '@', // options: horizontal | vertical | vertical left | vertical right
+                    step: '@',
+                    decimalPlaces: '@',
+                    filter: '@',
+                    filterOptions: '@',
+                    showValues: '@',
+                    pinHandle: '@',
+                    preventEqualMinMax: '@',
+                    attachHandleValues: '@'
                 };
+
+            if (legacySupport) {
+                // make optional properties required
+                scopeOptions.disabled = '=';
+                scopeOptions.modelMin = '=';
+                scopeOptions.modelMax = '=';
+            }
 
             // if (EVENT < 4) {
             //     // some sort of touch has been detected
@@ -132,24 +161,7 @@
                     '</div>',
                     '</div>'
                 ].join(''),
-                scope: {
-                    disabled: '=?',
-                    min: '=',
-                    max: '=',
-                    modelMin: '=?',
-                    modelMax: '=?',
-                    onHandleDown: '&', // calls optional function when handle is grabbed
-                    onHandleUp: '&', // calls optional function when handle is released 
-                    orientation: '@', // options: horizontal | vertical | vertical left | vertical right
-                    step: '@',
-                    decimalPlaces: '@',
-                    filter: '@',
-                    filterOptions: '@',
-                    showValues: '@',
-                    pinHandle: '@',
-                    preventEqualMinMax: '@',
-                    attachHandleValues: '@'
-                },
+                scope: scopeOptions,
                 link: function(scope, element, attrs, controller) {
 
                     /** 
