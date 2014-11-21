@@ -1,6 +1,6 @@
 {
   "name": "angular-rangeslider",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": [
     "./angular.rangeSlider.js",
     "./angular.rangeSlider.css"
