@@ -1,7 +1,7 @@
 /*
  *  Angular RangeSlider Directive
  * 
- *  Version: 0.0.10
+ *  Version: 0.0.11
  *
  *  Author: Daniel Crisp, danielcrisp.com
  *
@@ -568,6 +568,7 @@
 
                                     // unbind listeners
                                     $document.off(moveEvent);
+                                    $document.off(offEvent);
 
                                     angular.element('body').removeClass('ngrs-touching');
 
