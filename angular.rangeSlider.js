@@ -39,7 +39,7 @@
     'use strict';
 
     // check if we need to support legacy angular
-    var legacySupport = (angular.version.major === 1 && angular.version.minor === 0);
+    var legacySupport = (angular.version.major === 1 && angular.version.minor === 1);
 
     /**
      * RangeSlider, allows user to define a range of values using a slider
