@@ -544,11 +544,11 @@
                                         if (index === 0) {
 
                                             // update model as we slide
-                                            scope.modelMin = parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces);
+                                            scope.modelMin = parseFloat((((proposal * range) / 100) + parseInt(scope.min))).toFixed(scope.decimalPlaces);
 
                                         } else if (index === 1) {
 
-                                            scope.modelMax = parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces);
+                                            scope.modelMax = parseFloat((((proposal * range) / 100) + parseInt(scope.min))).toFixed(scope.decimalPlaces);
                                         }
 
                                         // update angular
