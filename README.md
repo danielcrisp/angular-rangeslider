@@ -95,6 +95,10 @@ Options are set as attributes on the `<div range-slider>`
 
 `attach-handle-values` - move the value labels in sync with the slider handles when `true`, default: `false`
 
+`min-text` - replace minimum value label. Doesn't work with filters.
+
+`max-text` - replace maximum value label. Doesn't work with filters. Similar to `min-text`
+
 Some more examples
 ------------------
 
