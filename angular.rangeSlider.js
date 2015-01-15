@@ -124,6 +124,7 @@
                     step: '@',
                     decimalPlaces: '@',
                     filter: '@',
+                    filterOptions: '@',
                     showValues: '@',
                     pinHandle: '@',
                     preventEqualMinMax: '@',
@@ -384,7 +385,10 @@
                             scope.modelMin = Math.max(scope.min, scope.modelMin);
                             scope.modelMax = Math.min(scope.max, scope.modelMax);
 
-                            if (scope.filter) {
+                            if (scope.filterOptions) {
+                                scope.filteredModelMin = $filter(scope.filter)(scope.modelMin, scope.filterOptions);
+                                scope.filteredModelMax = $filter(scope.filter)(scope.modelMax, scope.filterOptions);
+                            } else if (scope.filter) {
                                 var filterTokens = scope.filter.split(':'),
                                     filterName = scope.filter.split(':')[0],
                                     filterOptions = filterTokens.slice().slice(1),
