@@ -59,7 +59,8 @@
                     decimalPlaces: 0,
                     showValues: true,
                     preventEqualMinMax: false,
-                    attachHandleValues: false
+                    attachHandleValues: false,
+                    nonLinearStepping: {}
                 },
 
                 // Determine the events to bind. IE11 implements pointerEvents without
@@ -118,6 +119,7 @@
                     max: '=',
                     modelMin: '=?',
                     modelMax: '=?',
+                    nonLinearStepping: '=?',
                     onHandleDown: '&', // calls optional function when handle is grabbed
                     onHandleUp: '&', // calls optional function when handle is released 
                     orientation: '@', // options: horizontal | vertical | vertical left | vertical right
@@ -136,6 +138,7 @@
                 scopeOptions.disabled = '=';
                 scopeOptions.modelMin = '=';
                 scopeOptions.modelMax = '=';
+                scopeOptions.nonLinearStepping = '=';
             }
 
             // if (EVENT < 4) {
@@ -223,6 +226,12 @@
                     attrs.$observe('step', function(val) {
                         if (!angular.isDefined(val)) {
                             scope.step = defaults.step;
+                        }
+                    });
+
+                    attrs.$observe('nonLinearStepping', function (val) {
+                        if (!angular.isDefined(val)) {
+                            scope.nonLinearStepping = defaults.nonLinearStepping;
                         }
                     });
 
@@ -524,6 +533,26 @@
                                         proposal = proposal > otherModelPosition ? otherModelPosition : proposal;
                                     } else if (index === 1) {
                                         proposal = proposal < otherModelPosition ? otherModelPosition : proposal;
+                                    }
+
+                                    if (scope.nonLinearStepping) {
+                                        //Find interval within nonLinearStepping our current proposal belongs to
+                                        var candidate = false;
+                                        for (var k in scope.nonLinearStepping) {
+                                            if (proposal >= k) {
+                                                if (!candidate) {
+                                                    candidate = k;
+                                                } else {
+                                                    if (Math.abs(k - proposal) < Math.abs(candidate - proposal)) {
+                                                        candidate = k;
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                        if (candidate) {
+                                            per = (scope.nonLinearStepping[candidate] / range) * 100;
+                                        }
                                     }
 
                                     if (scope.step > 0) {
