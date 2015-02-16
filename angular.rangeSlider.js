@@ -1,7 +1,7 @@
 /*
  *  Angular RangeSlider Directive
  * 
- *  Version: 0.0.11
+ *  Version: 0.0.12
  *
  *  Author: Daniel Crisp, danielcrisp.com
  *
@@ -544,11 +544,11 @@
                                         if (index === 0) {
 
                                             // update model as we slide
-                                            scope.modelMin = parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces);
+                                            scope.modelMin = parseFloat(parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces));
 
                                         } else if (index === 1) {
 
-                                            scope.modelMax = parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces);
+                                            scope.modelMax = parseFloat(parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces));
                                         }
 
                                         // update angular
