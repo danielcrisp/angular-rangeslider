@@ -232,18 +232,6 @@
                         }
                     });
 
-                    attrs.$observe('showValues', function(val) {
-                        if (!angular.isDefined(val)) {
-                            scope.showValues = defaults.showValues;
-                        } else {
-                            if (val === 'false') {
-                                scope.showValues = false;
-                            } else {
-                                scope.showValues = true;
-                            }
-                        }
-                    });
-
                     attrs.$observe('pinHandle', function(val) {
                         if (!angular.isDefined(val)) {
                             scope.pinHandle = null;
@@ -258,30 +246,17 @@
                         scope.$watch('pinHandle', setPinHandle);
                     });
 
-                    attrs.$observe('preventEqualMinMax', function(val) {
-                        if (!angular.isDefined(val)) {
-                            scope.preventEqualMinMax = defaults.preventEqualMinMax;
-                        } else {
-                            if (val === 'false') {
-                                scope.preventEqualMinMax = false;
-                            } else {
-                                scope.preventEqualMinMax = true;
-                            }
-                        }
-                    });
+                    angular.forEach(['showValues','preventEqualMinMax','attachHandleValues'],function(prop){
+                        scope[prop] = defaults[prop];
 
-                    attrs.$observe('attachHandleValues', function(val) {
-                        if (!angular.isDefined(val)) {
-                            scope.attachHandleValues = defaults.attachHandleValues;
-                        } else {
-                            if (val === 'false') {
-                                scope.attachHandleValues = false;
+                        attrs.$observe(prop, function(val) {
+                            if (!angular.isDefined(val)) {
+                                scope[prop] = defaults[prop];
                             } else {
-                                scope.attachHandleValues = true;
+                                scope[prop] = val !== 'false';
                             }
-                        }
+                        });
                     });
-
 
                     // listen for changes to values
                     scope.$watch('min', setMinMax);
@@ -382,8 +357,8 @@
                             }
 
                             // make sure the model values are within the allowed range
-                            scope.modelMin = Math.max(scope.min, scope.modelMin);
-                            scope.modelMax = Math.min(scope.max, scope.modelMax);
+                            scope.modelMin = Math.max(scope.min, scope.modelMin).toFixed(scope.decimalPlaces);
+                            scope.modelMax = Math.min(scope.max, scope.modelMax).toFixed(scope.decimalPlaces);
 
                             if (scope.filter) {
                                 scope.filteredModelMin = $filter(scope.filter)(scope.modelMin, scope.filterOptions);
