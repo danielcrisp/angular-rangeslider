@@ -47,7 +47,7 @@
      * @directive
      */
     angular.module('ui-rangeSlider', [])
-        .directive('rangeSlider', ['$document', '$filter', '$log', function($document, $filter, $log) {
+        .directive('rangeSlider', ['$document', '$filter', '$log', '$timeout', function($document, $filter, $log, $timeout) {
 
             // test for mouse, pointer or touch
             var eventNamespace = '.rangeSlider',
@@ -57,6 +57,7 @@
                     orientation: 'horizontal',
                     step: 0,
                     decimalPlaces: 0,
+                    delay: 0,
                     showValues: true,
                     preventEqualMinMax: false,
                     attachHandleValues: false
@@ -134,8 +135,8 @@
             if (legacySupport) {
                 // make optional properties required
                 scopeOptions.disabled = '=';
-                scopeOptions.modelMin = '=';
-                scopeOptions.modelMax = '=';
+                scopeOptions.currentMin = '=';
+                scopeOptions.currentMax = '=';
             }
 
             // if (EVENT < 4) {
@@ -164,7 +165,7 @@
                 scope: scopeOptions,
                 link: function(scope, element, attrs, controller) {
 
-                    /** 
+                    /**
                      *  FIND ELEMENTS
                      */
 
@@ -180,20 +181,12 @@
                         down = false;
 
                     // filtered
-                    scope.filteredModelMin = scope.modelMin;
-                    scope.filteredModelMax = scope.modelMax;
+                    scope.filteredModelMin = scope.currentMin;
+                    scope.filteredModelMax = scope.currentMax;
 
                     /**
                      *  FALL BACK TO DEFAULTS FOR SOME ATTRIBUTES
                      */
-
-                    attrs.$observe('disabled', function(val) {
-                        if (!angular.isDefined(val)) {
-                            scope.disabled = defaults.disabled;
-                        }
-
-                        scope.$watch('disabled', setDisabledStatus);
-                    });
 
                     attrs.$observe('orientation', function(val) {
                         if (!angular.isDefined(val)) {
@@ -220,30 +213,6 @@
                         }
                     });
 
-                    attrs.$observe('step', function(val) {
-                        if (!angular.isDefined(val)) {
-                            scope.step = defaults.step;
-                        }
-                    });
-
-                    attrs.$observe('decimalPlaces', function(val) {
-                        if (!angular.isDefined(val)) {
-                            scope.decimalPlaces = defaults.decimalPlaces;
-                        }
-                    });
-
-                    attrs.$observe('showValues', function(val) {
-                        if (!angular.isDefined(val)) {
-                            scope.showValues = defaults.showValues;
-                        } else {
-                            if (val === 'false') {
-                                scope.showValues = false;
-                            } else {
-                                scope.showValues = true;
-                            }
-                        }
-                    });
-
                     attrs.$observe('pinHandle', function(val) {
                         if (!angular.isDefined(val)) {
                             scope.pinHandle = null;
@@ -258,37 +227,41 @@
                         scope.$watch('pinHandle', setPinHandle);
                     });
 
-                    attrs.$observe('preventEqualMinMax', function(val) {
-                        if (!angular.isDefined(val)) {
-                            scope.preventEqualMinMax = defaults.preventEqualMinMax;
-                        } else {
-                            if (val === 'false') {
-                                scope.preventEqualMinMax = false;
-                            } else {
-                                scope.preventEqualMinMax = true;
-                            }
-                        }
+                    angular.forEach(['step', 'decimalPlaces', 'disabled', 'delay'], function (prop) {
+                        scope[prop] = defaults[prop];
+
+                        attrs.$observe(prop, function (val) {
+                            scope[prop] = angular.isDefined(val) ? val : defaults[prop];
+                        });
                     });
 
-                    attrs.$observe('attachHandleValues', function(val) {
-                        if (!angular.isDefined(val)) {
-                            scope.attachHandleValues = defaults.attachHandleValues;
-                        } else {
-                            if (val === 'false') {
-                                scope.attachHandleValues = false;
-                            } else {
-                                scope.attachHandleValues = true;
-                            }
-                        }
-                    });
+                    angular.forEach(['showValues', 'preventEqualMinMax', 'attachHandleValues'], function (prop) {
+                        scope[prop] = defaults[prop];
 
+                        attrs.$observe(prop, function (val) {
+                            if (!angular.isDefined(val)) {
+                                scope[prop] = defaults[prop];
+                            } else {
+                                scope[prop] = val !== 'false';
+                            }
+                        });
+                    });
 
                     // listen for changes to values
                     scope.$watch('min', setMinMax);
                     scope.$watch('max', setMinMax);
 
-                    scope.$watch('modelMin', setModelMinMax);
-                    scope.$watch('modelMax', setModelMinMax);
+                    scope.$watch('currentMin', setModelMinMax);
+                    scope.$watch('currentMax', setModelMinMax);
+
+                    scope.$watch('modelMin', function (m) {
+                        scope.currentMin = angular.isDefined(m) ? m : scope.min;
+                    });
+                    scope.$watch('modelMax', function (m) {
+                        scope.currentMax = angular.isDefined(m) ? m : scope.max;
+                    });
+
+                    scope.$watch('disabled', setDisabledStatus);
 
                     /**
                      * HANDLE CHANGES
@@ -342,37 +315,38 @@
                         }
                     }
 
+                    var timeoutPromise;
                     function setModelMinMax() {
 
-                        if (scope.modelMin > scope.modelMax) {
+                        if (scope.currentMin > scope.currentMax) {
                             throwWarning('modelMin must be less than or equal to modelMax');
                             // reset values to correct
-                            scope.modelMin = scope.modelMax;
+                            scope.currentMin = scope.currentMax;
                         }
 
                         // only do stuff when both values are ready
                         if (
-                            (angular.isDefined(scope.modelMin) || scope.pinHandle === 'min') &&
-                            (angular.isDefined(scope.modelMax) || scope.pinHandle === 'max')
+                            (angular.isDefined(scope.currentMin) || scope.pinHandle === 'min') &&
+                            (angular.isDefined(scope.currentMax) || scope.pinHandle === 'max')
                         ) {
 
                             // make sure they are numbers
-                            if (!isNumber(scope.modelMin)) {
+                            if (!isNumber(scope.currentMin)) {
                                 if (scope.pinHandle !== 'min') {
                                     throwWarning('modelMin must be a number');
                                 }
-                                scope.modelMin = scope.min;
+                                scope.currentMin = scope.min;
                             }
 
-                            if (!isNumber(scope.modelMax)) {
+                            if (!isNumber(scope.currentMax)) {
                                 if (scope.pinHandle !== 'max') {
                                     throwWarning('modelMax must be a number');
                                 }
-                                scope.modelMax = scope.max;
+                                scope.currentMax = scope.max;
                             }
 
-                            var handle1pos = restrict(((scope.modelMin - scope.min) / range) * 100),
-                                handle2pos = restrict(((scope.modelMax - scope.min) / range) * 100),
+                            var handle1pos = restrict(((scope.currentMin - scope.min) / range) * 100),
+                                handle2pos = restrict(((scope.currentMax - scope.min) / range) * 100),
                                 value1pos,
                                 value2pos;
 
@@ -382,19 +356,28 @@
                             }
 
                             // make sure the model values are within the allowed range
-                            scope.modelMin = Math.max(scope.min, scope.modelMin);
-                            scope.modelMax = Math.min(scope.max, scope.modelMax);
+                            scope.currentMin = Math.max(scope.min, scope.currentMin);
+                            scope.currentMax = Math.min(scope.max, scope.currentMax);
+
+                            if (scope.decimalPlaces) {
+                                scope.currentMin = scope.currentMin.toFixed(scope.decimalPlaces);
+                                scope.currentMax = scope.currentMax.toFixed(scope.decimalPlaces);
+                            } else {
+                                //Better to work with integers instead of the strings returned by toFixed()
+                                scope.currentMin = parseInt(scope.currentMin);
+                                scope.currentMax = parseInt(scope.currentMax);
+                            }
 
                             if (scope.filter) {
-                                scope.filteredModelMin = $filter(scope.filter)(scope.modelMin, scope.filterOptions);
-                                scope.filteredModelMax = $filter(scope.filter)(scope.modelMax, scope.filterOptions);
+                                scope.filteredModelMin = $filter(scope.filter)(scope.currentMin, scope.filterOptions);
+                                scope.filteredModelMax = $filter(scope.filter)(scope.currentMax, scope.filterOptions);
                             } else {
-                                scope.filteredModelMin = scope.modelMin;
-                                scope.filteredModelMax = scope.modelMax;
+                                scope.filteredModelMin = scope.currentMin;
+                                scope.filteredModelMax = scope.currentMax;
                             }
 
                             // check for no range
-                            if (scope.min === scope.max && scope.modelMin == scope.modelMax) {
+                            if (scope.min === scope.max && scope.currentMin == scope.currentMax) {
 
                                 // reposition handles
                                 angular.element(handles[0]).css(pos, '0%');
@@ -433,6 +416,20 @@
                                 }
                             }
 
+                            //Apply values to model
+                            if(scope.delay) {
+                                if (timeoutPromise) {
+                                    $timeout.cancel(timeoutPromise);
+                                }
+
+                                timeoutPromise = $timeout(function () {
+                                    scope.modelMin = scope.currentMin;
+                                    scope.modelMax = scope.currentMax;
+                                }, scope.delay);
+                            } else {
+                                scope.modelMin = scope.currentMin;
+                                scope.modelMax = scope.currentMax;
+                            }
                         }
 
                     }
@@ -446,7 +443,7 @@
 
                             var handleDownClass = (index === 0 ? 'ngrs-handle-min' : 'ngrs-handle-max') + '-down',
                                 //unbind = $handle.add($document).add('body'),
-                                modelValue = (index === 0 ? scope.modelMin : scope.modelMax) - scope.min,
+                                modelValue = (index === 0 ? scope.currentMin : scope.currentMax) - scope.min,
                                 originalPosition = (modelValue / range) * 100,
                                 originalClick = client(event),
                                 previousClick = originalClick,
@@ -485,7 +482,7 @@
                                         proposal,
                                         other,
                                         per = (scope.step / range) * 100,
-                                        otherModelPosition = (((index === 0 ? scope.modelMax : scope.modelMin) - scope.min) / range) * 100;
+                                        otherModelPosition = (((index === 0 ? scope.currentMax : scope.currentMin) - scope.min) / range) * 100;
 
                                     if (currentClick[0] === "x") {
                                         return;
@@ -542,13 +539,10 @@
                                     if (movement[orientation] && proposal != previousProposal) {
 
                                         if (index === 0) {
-
                                             // update model as we slide
-                                            scope.modelMin = parseFloat(parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces));
-
+                                            scope.currentMin = parseFloat(parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces));
                                         } else if (index === 1) {
-
-                                            scope.modelMax = parseFloat(parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces));
+                                            scope.currentMax = parseFloat(parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces));
                                         }
 
                                         // update angular
