@@ -365,19 +365,15 @@
                             }
 
                             if (!isNumber(scope.modelMax)) {
+                                scope.modelMax = scope.max;
                                 if (scope.pinHandle !== 'max') {
                                     throwWarning('modelMax must be a number');
-                                }
-                                // scope.modelMax = scope.max;
-                                
-                                // if deleted with backspace in a type="number" input, the value is set to null
-                                if (scope.modelMax === null) {
                                     if (scope.modelMin) {
-                                        scope.modelMax = scope.modelMin
+                                      scope.modelMax = scope.modelMin;
                                     } else if (scope.min) {
-                                        scope.modelMax = scope.min;
+                                      scope.modelMax = scope.min;
                                     } else {
-                                        scope.modelMax = 0;
+                                      scope.modelMax = 0;
                                     }
                                 }
                             }
