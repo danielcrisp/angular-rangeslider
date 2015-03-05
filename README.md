@@ -1,6 +1,6 @@
 angular-rangeslider
 ===================
-_Current version: 0.0.12_
+_Current version: 0.0.13_
 
 Angular RangeSlider is a directive that creates an interactive slider that allows a user to change model values.
 
@@ -85,7 +85,7 @@ Options are set as attributes on the `<div range-slider>`
 
 `decimal-places` - the number of decimal places to round to, default: 0
 
-`filter` - a built-in filter to apply to the displayed values, for example `currency`
+`filter` - a built-in filter to apply to the displayed values, for example `currency` or `currency:'$'`
 
 `filter-options` - options to pass to the filter
 
@@ -125,6 +125,12 @@ Continuing from the example above we can format the values displayed to the user
 This will automatically be localised by Angular, but we can force it to be USD by passing this as an option:
 
     <div range-slider min="minPrice" max="maxPrice" model-min="userMinPrice" model-max="userMaxPrice" step="5" filter="currency" filter-options="USD$"></div>
+
+Alternatively you can use Angular's filter notation directly in the `filter` attribute, such as `filter="currency:'GBP £'"`, which would result in values like this: `GBP £7,500.00`.
+
+    <div range-slider min="minPrice" max="maxPrice" model-min="userMinPrice" model-max="userMaxPrice" step="5" filter="currency:'GBP £'"></div>
+
+**NOTE:** If the `filter-options` attribute is defined you **cannot** use Angular filter notation. You must only use the filter name in the `filter` attribute.
 
 ![Currency example](screenshots/currency.png)
 
