@@ -31,7 +31,7 @@
           <h1>
 <a name="angular-rangeslider" class="anchor" href="#angular-rangeslider"><span class="octicon octicon-link"></span></a>AngularJS RangeSlider</h1>
 
-<p><em>Current version: 0.0.12</em></p>
+<p><em>Current version: 0.0.13</em></p>
 
 <p>Angular RangeSlider is a directive that creates an interactive slider that allows a user to change model values.</p>
 
@@ -91,7 +91,7 @@
 
 <p><code>decimal-places</code> - the number of decimal places to round to, default: 0</p>
 
-<p><code>filter</code> - a built-in filter to apply to the displayed values, for example <code>currency</code></p>
+<p><code>filter</code> - a built-in filter to apply to the displayed values, for example <code>currency</code> or <code>currency:'$'</code></p>
 
 <p><code>filter-options</code> - options to pass to the filter</p>
 
@@ -135,6 +135,13 @@ $scope.userMaxPrice = $scope.maxPrice;
 
 <pre><code>&lt;div range-slider min="minPrice" max="maxPrice" model-min="userMinPrice" model-max="userMaxPrice" step="5" filter="currency" filter-options="USD$"&gt;&lt;/div&gt;
 </code></pre>
+
+<p>Alternatively you can use Angular's filter notation directly in the <code>filter</code> attribute, such as <code>filter="currency:'GBP £'"</code>, which would result in values like this: <code>GBP £7,500.00</code>.</p>
+
+<pre><code>&lt;div range-slider min="minPrice" max="maxPrice" model-min="userMinPrice" model-max="userMaxPrice" step="5" filter="currency:'GBP £'"&gt;&lt;/div&gt;
+</code></pre>
+
+**NOTE:** If the `filter-options` attribute is defined you **cannot** use Angular filter notation. You must only use the filter name in the `filter` attribute.
 
 <p><img src="screenshots/currency.png" alt="Currency example"></p>
 
