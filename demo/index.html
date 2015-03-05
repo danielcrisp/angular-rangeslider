@@ -76,14 +76,14 @@ $scope.demo2 = {
 			<div class="span5">
 				<h4>The slider</h4>
 				
-				<div range-slider min="demo2.range.min" max="demo2.range.max" model-min="demo2.minPrice" model-max="demo2.maxPrice" filter="currency" filter-options="GBP &pound;" step="100"></div>
+				<div range-slider min="demo2.range.min" max="demo2.range.max" model-min="demo2.minPrice" model-max="demo2.maxPrice" filter="currency:'$'" step="100"></div>
 				
 			</div>
 			<div class="span2"></div>
 			<div class="span5">
 				<h4>The HTML</h4>
 				<p>Here we are using the <code>filter</code>, <code>filter-options</code> and <code>step</code> options.</p>
-				<pre>&lt;div range-slider min="demo2.range.min" max="demo2.range.max" model-min="demo2.minPrice" model-max="demo2.maxPrice" filter="currency" filter-options="GBP &pound;" step="100"&gt;&lt;/div&gt;</pre>
+				<pre>&lt;div range-slider min="demo2.range.min" max="demo2.range.max" model-min="demo2.minPrice" model-max="demo2.maxPrice" filter="currency:'$'" step="100"&gt;&lt;/div&gt;</pre>
 
 			</div>
 			
@@ -258,7 +258,7 @@ $scope.demo8 = {
 
 			<div class="span12">
 				<h4>The slider</h4>
-				<p>You can make the values move with the handles as they slide by setting attach-handle-values equal to true.</p>
+				<p>You can make the values move with the handles as they slide by setting <code>attach-handle-values</code> to true.</p>
 				<div range-slider min="0" max="10000" model-min="demo8.min" model-max="demo8.max" attach-handle-values="true"></div>
 			</div>
 			<div class="span12">

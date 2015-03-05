@@ -158,15 +158,17 @@ $ngrs-prefix: 'ngrs-';
       ATTACHED VALUE RUNNER
   \*------------------------------------*/
 	.#{$ngrs-prefix}attached-handles {
-			margin: 0 9px;
-			position: relative;
+		margin: 0 9px;
+		position: relative;
 
     /*------------------------------------*\
         ATTACHED VALUE RUNNER LABELS
     \*------------------------------------*/
-		.#{$ngrs-prefix}value-max {
-			text-align: left;
-		}
+        .#{$ngrs-prefix}value {
+            // must be left-aligned for the negative margin to work
+            text-align: left;
+        }
+
 		.#{$ngrs-prefix}value > div {
 			margin: 0 0 0 -50%;
 		}
@@ -195,12 +197,11 @@ $ngrs-prefix: 'ngrs-';
     \*------------------------------------*/
 		.#{$ngrs-prefix}value-runner {
 			&.#{$ngrs-prefix}attached-handles {
-				padding: $ngrs-padding;
-				position: absolute;
-				top: 0;
-				margin: $ngrs-handleHeight / 2 0;
-				height: $ngrs-verticalHeight;
-				left: 100%;
+                position: absolute;
+                top: 0;
+                left: 100%;
+                bottom: 0;
+				margin: ($ngrs-handleHeight / 2) 0;
 			}
 		}
 
@@ -264,8 +265,10 @@ $ngrs-prefix: 'ngrs-';
 		}
 
 		.#{$ngrs-prefix}attached-handles {
-			.#{$ngrs-prefix}value-max, .#{$ngrs-prefix}value-min {
-				margin: -50% 0 0;
+			.#{$ngrs-prefix}value {
+                > div {
+                    margin: -50% 0 0 0;
+                }
 			}
 		}
 
@@ -285,13 +288,6 @@ $ngrs-prefix: 'ngrs-';
 			margin: 10px 0 10px auto;
 
       /*------------------------------------*\
-          ATTACHED VALUE RUNNER
-      \*------------------------------------*/
-			.#{$ngrs-prefix}attached-handles {
-				left: 0%;
-			}
-
-      /*------------------------------------*\
           VALUE LABELS
       \*------------------------------------*/
 
@@ -305,6 +301,12 @@ $ngrs-prefix: 'ngrs-';
 					text-align: right;
 				}
 			}
+
+            .#{$ngrs-prefix}value-runner {
+                &.#{$ngrs-prefix}attached-handles {
+                    left: 0;
+                }
+            }
 
 		}
 	}

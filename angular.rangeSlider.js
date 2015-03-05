@@ -1,7 +1,7 @@
 /*
  *  Angular RangeSlider Directive
- *
- *  Version: 0.0.11
+ * 
+ *  Version: 0.0.13
  *
  *  Author: Daniel Crisp, danielcrisp.com
  *
@@ -274,10 +274,13 @@
                         if (!angular.isDefined(val)) {
                             scope.attachHandleValues = defaults.attachHandleValues;
                         } else {
-                            if (val === 'false') {
-                                scope.attachHandleValues = false;
-                            } else {
+                            if (val === 'true' || val === '') {
+                                // flag as true
                                 scope.attachHandleValues = true;
+                                // add class to runner
+                                element.find('.ngrs-value-runner').addClass('ngrs-attached-handles');
+                            } else {
+                                scope.attachHandleValues = false;
                             }
                         }
                     });
@@ -385,10 +388,11 @@
                             scope.modelMin = Math.max(scope.min, scope.modelMin);
                             scope.modelMax = Math.min(scope.max, scope.modelMax);
 
-                            if (scope.filterOptions) {
+                            if (scope.filter && scope.filterOptions) {
                                 scope.filteredModelMin = $filter(scope.filter)(scope.modelMin, scope.filterOptions);
                                 scope.filteredModelMax = $filter(scope.filter)(scope.modelMax, scope.filterOptions);
                             } else if (scope.filter) {
+
                                 var filterTokens = scope.filter.split(':'),
                                     filterName = scope.filter.split(':')[0],
                                     filterOptions = filterTokens.slice().slice(1),
@@ -403,6 +407,7 @@
                                         return arg.slice(1, -1);
                                     }
                                 });
+
                                 modelMinOptions = filterOptions.slice();
                                 modelMaxOptions = filterOptions.slice();
                                 modelMinOptions.unshift(scope.modelMin);
@@ -424,7 +429,6 @@
 
                                 if (scope.attachHandleValues) {
                                     // reposition values
-                                    angular.element('.ngrs-value-runner').addClass('ngrs-attached-handles');
                                     angular.element(values[0]).css(pos, '0%');
                                     angular.element(values[1]).css(pos, '100%');
                                 }
@@ -440,7 +444,6 @@
 
                                 if (scope.attachHandleValues) {
                                     // reposition values
-                                    angular.element('.ngrs-value-runner').addClass('ngrs-attached-handles');
                                     angular.element(values[0]).css(pos, value1pos + '%');
                                     angular.element(values[1]).css(pos, value2pos + '%');
                                     angular.element(values[1]).css(posOpp, 'auto');
@@ -566,11 +569,11 @@
                                         if (index === 0) {
 
                                             // update model as we slide
-                                            scope.modelMin = parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces);
+                                            scope.modelMin = parseFloat(parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces));
 
                                         } else if (index === 1) {
 
-                                            scope.modelMax = parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces);
+                                            scope.modelMax = parseFloat(parseFloat((((proposal * range) / 100) + scope.min)).toFixed(scope.decimalPlaces));
                                         }
 
                                         // update angular
