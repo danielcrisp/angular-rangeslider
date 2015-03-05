@@ -99,6 +99,8 @@
 
 <p><code>prevent-equal-min-max</code> - prevent the <code>min</code> and <code>max</code> values from being equal. The <code>step</code> value is used to set the minimum difference, otherwise a value of <code>1</code> is used.</p>
 
+<p><code>attach-handle-values</code> - move the value labels in sync with the slider handles when <code>true</code>, default: <code>false</code></p>
+
 <h2>
 <a name="some-more-examples" class="anchor" href="#some-more-examples"><span class="octicon octicon-link"></span></a>Some more examples</h2>
 
@@ -141,7 +143,7 @@ $scope.userMaxPrice = $scope.maxPrice;
 <pre><code>&lt;div range-slider min="minPrice" max="maxPrice" model-min="userMinPrice" model-max="userMaxPrice" step="5" filter="currency:'GBP £'"&gt;&lt;/div&gt;
 </code></pre>
 
-**NOTE:** If the `filter-options` attribute is defined you **cannot** use Angular filter notation. You must only use the filter name in the `filter` attribute.
+<p><strong>NOTE:</strong> If the <code>filter-options</code> attribute is defined you **cannot** use Angular filter notation. You must only use the filter name in the <code>filter</code> attribute.
 
 <p><img src="screenshots/currency.png" alt="Currency example"></p>
 
