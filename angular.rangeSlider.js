@@ -1,13 +1,13 @@
 /*
  *  Angular RangeSlider Directive
  * 
- *  Version: 0.0.12
+ *  Version: 0.0.13
  *
  *  Author: Daniel Crisp, danielcrisp.com
  *
  *  The rangeSlider has been styled to match the default styling
  *  of form elements styled using Twitter's Bootstrap
- * 
+ *
  *  Originally forked from https://github.com/leongersen/noUiSlider
  *
 
@@ -39,7 +39,7 @@
     'use strict';
 
     // check if we need to support legacy angular
-    var legacySupport = (angular.version.major === 1 && angular.version.minor === 1);
+    var legacySupport = (angular.version.major === 1 && angular.version.minor === 0);
 
     /**
      * RangeSlider, allows user to define a range of values using a slider
@@ -119,7 +119,7 @@
                     modelMin: '=?',
                     modelMax: '=?',
                     onHandleDown: '&', // calls optional function when handle is grabbed
-                    onHandleUp: '&', // calls optional function when handle is released 
+                    onHandleUp: '&', // calls optional function when handle is released
                     orientation: '@', // options: horizontal | vertical | vertical left | vertical right
                     step: '@',
                     decimalPlaces: '@',
@@ -164,7 +164,7 @@
                 scope: scopeOptions,
                 link: function(scope, element, attrs, controller) {
 
-                    /** 
+                    /**
                      *  FIND ELEMENTS
                      */
 
@@ -274,10 +274,15 @@
                         if (!angular.isDefined(val)) {
                             scope.attachHandleValues = defaults.attachHandleValues;
                         } else {
-                            if (val === 'false') {
-                                scope.attachHandleValues = false;
-                            } else {
+
+                            if (val === 'true' || val === '') {
+                                // flag as true
                                 scope.attachHandleValues = true;
+                                // add class to runner
+                                element.find('.ngrs-value-runner').addClass('ngrs-attached-handles');
+                            } else {
+                                scope.attachHandleValues = false;
+
                             }
                         }
                     });
@@ -385,9 +390,33 @@
                             scope.modelMin = Math.max(scope.min, scope.modelMin);
                             scope.modelMax = Math.min(scope.max, scope.modelMax);
 
-                            if (scope.filter) {
+                            if (scope.filter && scope.filterOptions) {
                                 scope.filteredModelMin = $filter(scope.filter)(scope.modelMin, scope.filterOptions);
                                 scope.filteredModelMax = $filter(scope.filter)(scope.modelMax, scope.filterOptions);
+                            } else if (scope.filter) {
+
+                                var filterTokens = scope.filter.split(':'),
+                                    filterName = scope.filter.split(':')[0],
+                                    filterOptions = filterTokens.slice().slice(1),
+                                    modelMinOptions,
+                                    modelMaxOptions;
+
+                                // properly parse string and number args
+                                filterOptions = filterOptions.map(function (arg) {
+                                    if (isNumber(arg)) {
+                                        return +arg;
+                                    } else if ((arg[0] == "\"" && arg[arg.length-1] == "\"") || (arg[0] == "\'" && arg[arg.length-1] == "\'")) {
+                                        return arg.slice(1, -1);
+                                    }
+                                });
+
+                                modelMinOptions = filterOptions.slice();
+                                modelMaxOptions = filterOptions.slice();
+                                modelMinOptions.unshift(scope.modelMin);
+                                modelMaxOptions.unshift(scope.modelMax);
+
+                                scope.filteredModelMin = $filter(filterName).apply(null, modelMinOptions);
+                                scope.filteredModelMax = $filter(filterName).apply(null, modelMaxOptions);
                             } else {
                                 scope.filteredModelMin = scope.modelMin;
                                 scope.filteredModelMax = scope.modelMax;
@@ -402,7 +431,6 @@
 
                                 if (scope.attachHandleValues) {
                                     // reposition values
-                                    angular.element('.ngrs-value-runner').addClass('ngrs-attached-handles');
                                     angular.element(values[0]).css(pos, '0%');
                                     angular.element(values[1]).css(pos, '100%');
                                 }
@@ -418,7 +446,6 @@
 
                                 if (scope.attachHandleValues) {
                                     // reposition values
-                                    angular.element('.ngrs-value-runner').addClass('ngrs-attached-handles');
                                     angular.element(values[0]).css(pos, value1pos + '%');
                                     angular.element(values[1]).css(pos, value2pos + '%');
                                     angular.element(values[1]).css(posOpp, 'auto');
