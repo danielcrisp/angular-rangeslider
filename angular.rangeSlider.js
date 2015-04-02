@@ -119,6 +119,7 @@
                     modelMin: '=?',
                     modelMax: '=?',
                     onHandleDown: '&', // calls optional function when handle is grabbed
+                    onHandleMove: '&', // calls optional function when handle is moved
                     onHandleUp: '&', // calls optional function when handle is released
                     orientation: '@', // options: horizontal | vertical | vertical left | vertical right
                     step: '@',
@@ -504,6 +505,9 @@
                                 $document.bind(moveEvent, function(e) {
                                     // prevent default
                                     e.preventDefault();
+                                    if (angular.isFunction(scope.onHandleMove)) {
+                                        scope.onHandleMove();
+                                    }
 
                                     var currentClick = client(e),
                                         movement,
