@@ -95,6 +95,10 @@ Options are set as attributes on the `<div range-slider>`
 
 `attach-handle-values` - move the value labels in sync with the slider handles when `true`, default: `false`
 
+`on-handle-up` - call a function whenever a handle is grabbed.
+
+`on-handle-down` - call a function whenever a handle is released.
+
 Some more examples
 ------------------
 
@@ -105,11 +109,11 @@ The following properties are present in the scope:
     // set available range
     $scope.minPrice = 100;
     $scope.maxPrice = 999;
-    
+
     // default the user's values to the available range
     $scope.userMinPrice = $scope.minPrice;
     $scope.userMaxPrice = $scope.maxPrice;
-    
+
 So we can include the directive in the HTML like this:
 
     <div range-slider min="minPrice" max="maxPrice" model-min="userMinPrice" model-max="userMaxPrice" step="5"></div>
@@ -147,7 +151,7 @@ This will create a vertical slider that is centred in it's parent element:
 To left-align the slider use 'vertical left':
 
     <div range-slider min="0" max="100" model-min="min" model-max="max" orientation="vertical left"></div>
-    
+
 And to right-align the slider use 'vertical right':
 
     <div range-slider min="0" max="100" model-min="min" model-max="max" orientation="vertical right"></div>
@@ -161,10 +165,10 @@ If you have a boolean property in your scope you can simply change this value to
 And then specify the property using the disabled attribute:
 
     <div range-slider min="0" max="100" model-min="min" model-max="max" disabled="sliderDisabled"></div>
-    
+
     // clicking this button will toggle the sliderDisabled value between true and false
     <button ng-click="sliderDisabled=!sliderDisabled">Toggle slider disabled status</button>
-    
+
 ![Disabled example](screenshots/disabled.png)
 
 ### Pinning a handle
@@ -172,7 +176,7 @@ And then specify the property using the disabled attribute:
 If you would like only allow setting one value, effectively creating a single-value silder, set the pin-handle attribute to 'min' or 'max'. You may then omit the corresponding model-xxx property:
 
     <div range-slider min="0" max="100" model-max="max" pin-handle="min></div>
-    
+
 ![Pinned example](screenshots/pinned.png)
 
 ### Move values with handles
