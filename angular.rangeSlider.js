@@ -368,10 +368,17 @@
                             }
 
                             if (!isNumber(scope.modelMax)) {
+                                scope.modelMax = scope.max;
                                 if (scope.pinHandle !== 'max') {
                                     throwWarning('modelMax must be a number');
+                                    if (scope.modelMin) {
+                                      scope.modelMax = scope.modelMin;
+                                    } else if (scope.min) {
+                                      scope.modelMax = scope.min;
+                                    } else {
+                                      scope.modelMax = 0;
+                                    }
                                 }
-                                scope.modelMax = scope.max;
                             }
 
                             var handle1pos = restrict(((scope.modelMin - scope.min) / range) * 100),
