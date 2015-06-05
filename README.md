@@ -1,6 +1,6 @@
 angular-rangeslider
 ===================
-_Current version: 0.0.13_
+_Current version: 0.0.14_
 
 Angular RangeSlider is a directive that creates an interactive slider that allows a user to change model values.
 
@@ -98,6 +98,8 @@ Options are set as attributes on the `<div range-slider>`
 `on-handle-up` - call a function whenever a handle is released
 
 `on-handle-down` - call a function whenever a handle is grabbed
+
+`getter-setter` - enable getter / setter support for model values - options: `true` | `false`
 
 Some more examples
 ------------------
