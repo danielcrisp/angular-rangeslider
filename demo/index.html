@@ -89,6 +89,42 @@ $scope.demo2 = {
 			
 
 		</div>
+
+		<hr />
+
+		<div class="row">
+			<div class="span12">
+				<h3>GetterSetter models</h3>
+				<h4>The model</h4>
+				<pre>
+$scope.demo3 = {
+    _min: 25,
+    _max: 75,
+    min: function(newValue) {
+        return arguments.length ? ($scope.demo3._min = newValue) : $scope.demo3._min;
+    },
+    max: function(newValue) {
+        return arguments.length ? ($scope.demo3._max = newValue) : $scope.demo3._max;
+    }
+};</pre>
+			</div>
+
+			<div class="span5">
+				<h4>The slider</h4>
+
+				<div range-slider min="0" max="100" model-min="demo3.min" model-max="demo3.max" getter-setter="true"></div>
+
+			</div>
+			<div class="span2"></div>
+			<div class="span5">
+				<h4>The HTML</h4>
+				<p>Here we are using the <code>getter-setter</code> option allowing us to provide getterSetter methods to <code>model-min</code> and <code>model-max</code></p>
+				<pre>&lt;div range-slider min="0" max="100" model-min="demo3.min" model-max="demo3.max" getter-setter="true"&gt;&lt;/div&gt;</pre>
+
+			</div>
+
+
+		</div>
 		
 		<hr />
 
@@ -97,7 +133,7 @@ $scope.demo2 = {
 				<h3>Disabling the slider</h3>
 				<h4>The model</h4>
 				<pre>
-$scope.demo3 = {
+$scope.demo4 = {
     rangeMin: 10,
     rangeMax: 1500,
     min: 80,
@@ -109,9 +145,9 @@ $scope.demo3 = {
 			<div class="span12">
 				<h4>The slider</h4>
 
-				<div range-slider min="demo3.rangeMin" max="demo3.rangeMax" model-min="demo3.min" model-max="demo3.max" disabled="demo3.disabled"></div>
+				<div range-slider min="demo4.rangeMin" max="demo4.rangeMax" model-min="demo4.min" model-max="demo4.max" disabled="demo4.disabled"></div>
 				
-				<button class="btn" ng-click="toggleDemo3()">Toggle Disabled State</button>
+				<button class="btn" ng-click="toggleDemo4()">Toggle Disabled State</button>
 			</div>
 
 		</div>
@@ -123,7 +159,7 @@ $scope.demo3 = {
 				<h3>Vertical alignment</h3>
 				<h4>The model</h4>
 				<pre>
-$scope.demo4 = {
+$scope.demo5 = {
     min: 300,
     max: 800
 };</pre>
@@ -132,27 +168,27 @@ $scope.demo4 = {
 			<div class="span5">
 				<h4>Left-aligned</h4>
 				<div class="well">
-					<div range-slider orientation="vertical left" min="0" max="1000" model-min="demo4.min" model-max="demo4.max"></div>
+					<div range-slider orientation="vertical left" min="0" max="1000" model-min="demo5.min" model-max="demo5.max"></div>
 				</div>
 			</div>
 			
 			<div class="span5 pull-right">
 				<h4>Right-aligned</h4>
 				<div class="well">
-					<div range-slider orientation="vertical right" min="0" max="1000" model-min="demo4.min" model-max="demo4.max"></div>
+					<div range-slider orientation="vertical right" min="0" max="1000" model-min="demo5.min" model-max="demo5.max"></div>
 				</div>
 			</div>
 
 			<div class="span5">
 				<h4>The HTML</h4>
 
-				<pre>&lt;div range-slider orientation="vertical left" min="0" max="1000" model-min="demo4.min" model-max="demo4.max"&gt;&lt;/div&gt;</pre>
+				<pre>&lt;div range-slider orientation="vertical left" min="0" max="1000" model-min="demo5.min" model-max="demo5.max"&gt;&lt;/div&gt;</pre>
 			</div>
 			
 			<div class="span5 pull-right">
 				<h4>The HTML</h4>
 
-				<pre>&lt;div range-slider orientation="vertical right" min="0" max="1000" model-min="demo4.min" model-max="demo4.max"&gt;&lt;/div&gt;</pre>
+				<pre>&lt;div range-slider orientation="vertical right" min="0" max="1000" model-min="demo5.min" model-max="demo5.max"&gt;&lt;/div&gt;</pre>
 			</div>
 
 		</div>
@@ -164,7 +200,7 @@ $scope.demo4 = {
 				<h3>Hide the values</h3>
 				<h4>The model</h4>
 				<pre>
-$scope.demo5 = {
+$scope.demo6 = {
     min: 80,
     max: 1000
 };</pre>
@@ -173,11 +209,11 @@ $scope.demo5 = {
 			<div class="span12">
 				<h4>The slider</h4>
 				<p>You can hide the slider values if you wish to display the values elsewhere.</p>
-				<p>Maybe you'd prefer to show the values in sentence form... Your current minimum value is <strong>{{demo5.min}}</strong> and your current maximum value is <strong>{{demo5.max}}</strong>.</p>
-				<div range-slider min="0" max="10000" model-min="demo5.min" model-max="demo5.max" show-values="false"></div>
+				<p>Maybe you'd prefer to show the values in sentence form... Your current minimum value is <strong>{{demo6.min}}</strong> and your current maximum value is <strong>{{demo6.max}}</strong>.</p>
+				<div range-slider min="0" max="10000" model-min="demo6.min" model-max="demo6.max" show-values="false"></div>
 			</div>
 			<div class="span12">
-				<pre>&lt;div range-slider min="0" max="10000" model-min="demo5.min" model-max="demo5.max" show-values="false"&gt;&lt;/div&gt;</pre>
+				<pre>&lt;div range-slider min="0" max="10000" model-min="demo6.min" model-max="demo6.max" show-values="false"&gt;&lt;/div&gt;</pre>
 			</div>
 		</div>
 
@@ -188,7 +224,7 @@ $scope.demo5 = {
 				<h3>Handle Pinning</h3>
 				<h4>The model</h4>
 				<pre>
-$scope.demo6 = {
+$scope.demo7 = {
     valueA: 5000,
     valueB: 3000
 };</pre>
@@ -197,13 +233,13 @@ $scope.demo6 = {
 			<div class="span12">
 				<h4>The sliders</h4>
 				<p>You many 'pin' (and hide) either the minimum or maximum handle to prevent it from being modified, effectivly converting the slider into a single-value slider.</p>
-				<p>The value of the first slider is: <strong>{{demo6.valueA}}</strong>; the second slider is <strong>{{demo6.valueB}}</strong>.</p>
-				<div range-slider min="0" max="10000" model-max="demo6.valueA" pin-handle="min"></div>
-				<div range-slider min="0" max="10000" model-min="demo6.valueB" pin-handle="max"></div>
+				<p>The value of the first slider is: <strong>{{demo7.valueA}}</strong>; the second slider is <strong>{{demo7.valueB}}</strong>.</p>
+				<div range-slider min="0" max="10000" model-max="demo7.valueA" pin-handle="min"></div>
+				<div range-slider min="0" max="10000" model-min="demo7.valueB" pin-handle="max"></div>
 			</div>
 			<div class="span12">
-				<pre>&lt;div range-slider min="0" max="10000" model-max="demo6.valueA" pin-handle="min"&gt;&lt;/div&gt;</pre>
-				<pre>&lt;div range-slider min="0" max="10000" model-min="demo6.valueB" pin-handle="max"&gt;&lt;/div&gt;</pre>
+				<pre>&lt;div range-slider min="0" max="10000" model-max="demo7.valueA" pin-handle="min"&gt;&lt;/div&gt;</pre>
+				<pre>&lt;div range-slider min="0" max="10000" model-min="demo7.valueB" pin-handle="max"&gt;&lt;/div&gt;</pre>
 			</div>
 		</div>
 
@@ -214,7 +250,7 @@ $scope.demo6 = {
 				<h3>Prevent the handles from being equal</h3>
 				<h4>The model</h4>
 				<pre>
-$scope.demo7 = {
+$scope.demo8 = {
     range: {
         min: 0,
         max: 10050
@@ -229,14 +265,14 @@ $scope.demo7 = {
 				
 				<p>You can prevent the two values from being equal by using the <code>prevent-equal-min-max="true"</code> attribute. The <code>step</code> value is used to maintain a gap between the values, so if the <code>step</code> is set to <code>100</code> the minimum difference will be 100. If no <code>step</code> value is provided a minimum difference of <code>1</code> will be used.</p>
 
-				<div range-slider min="demo7.range.min" max="demo7.range.max" model-min="demo7.minPrice" model-max="demo7.maxPrice" step="100" prevent-equal-min-max="true"></div>
+				<div range-slider min="demo8.range.min" max="demo8.range.max" model-min="demo8.minPrice" model-max="demo8.maxPrice" step="100" prevent-equal-min-max="true"></div>
 				
 			</div>
 			<div class="span2"></div>
 			<div class="span5">
 				<h4>The HTML</h4>
 				<p>Here we are using the <code>step</code> and <code>prevent-equal-min-max</code> options.</p>
-				<pre>&lt;div range-slider min="demo2.range.min" max="demo2.range.max" model-min="demo2.minPrice" model-max="demo2.maxPrice" step="100" prevent-equal-min-max="true"&gt;&lt;/div&gt;</pre>
+				<pre>&lt;div range-slider min="demo8.range.min" max="demo8.range.max" model-min="demo8.minPrice" model-max="demo8.maxPrice" step="100" prevent-equal-min-max="true"&gt;&lt;/div&gt;</pre>
 
 			</div>
 			
@@ -250,7 +286,7 @@ $scope.demo7 = {
 				<h3>Move values with handles</h3>
 				<h4>The model</h4>
 				<pre>
-$scope.demo8 = {
+$scope.demo9 = {
     max: 5000,
     min: 3000
 };</pre>
@@ -259,11 +295,11 @@ $scope.demo8 = {
 			<div class="span12">
 				<h4>The slider</h4>
 				<p>You can make the values move with the handles as they slide by setting <code>attach-handle-values</code> to true.</p>
-				<div range-slider min="0" max="10000" model-min="demo8.min" model-max="demo8.max" attach-handle-values="true"></div>
+				<div range-slider min="0" max="10000" model-min="demo9.min" model-max="demo9.max" attach-handle-values="true"></div>
 			</div>
 			<div class="span12">
 				<h4>The HTML</h4>
-				<pre>&lt;div range-slider min="0" max="10000" model-min="demo8.min" model-max="demo8.max" attach-handle-values="true"&gt;&lt;/div&gt;</pre>
+				<pre>&lt;div range-slider min="0" max="10000" model-min="demo9.min" model-max="demo9.max" attach-handle-values="true"&gt;&lt;/div&gt;</pre>
 			</div>
 		</div>
 
@@ -299,6 +335,17 @@ $scope.demo8 = {
 				};
 
 				$scope.demo3 = {
+					_min: 25,
+					_max: 75,
+					min: function(newValue) {
+						return arguments.length ? ($scope.demo3._min = newValue) : $scope.demo3._min;
+					},
+					max: function(newValue) {
+						return arguments.length ? ($scope.demo3._max = newValue) : $scope.demo3._max;
+					}
+				};
+
+				$scope.demo4 = {
 				    rangeMin: 10,
 				    rangeMax: 1500,
 				    min: 80,
@@ -307,27 +354,27 @@ $scope.demo8 = {
 				};
 
 				// function for the button to disable / enable slider 3
-				$scope.toggleDemo3 = function () {
+				$scope.toggleDemo4 = function () {
 					// toggle true / false
-					$scope.demo3.disabled = !$scope.demo3.disabled;
+					$scope.demo4.disabled = !$scope.demo4.disabled;
 				};
 
-				$scope.demo4 = {
+				$scope.demo5 = {
 				    min: 300,
 				    max: 800
 				};
 
-				$scope.demo5 = {
+				$scope.demo6 = {
 				    min: 2000,
 				    max: 8000
 				};
 
-				$scope.demo6 = {
+				$scope.demo7 = {
 				    valueA: 5000,
 				    valueB: 3000
 				};
 
-        		$scope.demo7 = {
+        		$scope.demo8 = {
 					range: {
 						min: 0,
 						max: 10050
@@ -336,7 +383,7 @@ $scope.demo8 = {
 					maxPrice: 4000
 				};
 
-        		$scope.demo8 = {
+				$scope.demo9 = {
 					min: 3000,
 					max: 5000
 				};
