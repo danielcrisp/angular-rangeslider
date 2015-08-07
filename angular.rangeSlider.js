@@ -129,7 +129,8 @@
                     pinHandle: '@',
                     preventEqualMinMax: '@',
                     attachHandleValues: '@',
-                    getterSetter: '@' // Allow the use of getterSetters for model values
+                    getterSetter: '@', // Allow the use of getterSetters for model values
+                    change: '&' // Allow the users to invoke a function from parent scope at the end of the off event
                 };
 
             if (legacySupport) {
@@ -628,6 +629,9 @@
 
                                     // remove active class
                                     $slider.removeClass('ngrs-focus ' + handleDownClass);
+
+                                    scope.change();
+                                    scope.$apply();
 
                                 });
                             }
