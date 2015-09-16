@@ -147,6 +147,10 @@
             // }
 
 
+            var findByClassName = function(element, className) {
+                return angular.element(element[0].getElementsByClassName(className));
+            };
+
             return {
                 restrict: 'A',
                 replace: true,
@@ -170,9 +174,9 @@
                      */
 
                     var $slider = angular.element(element),
-                        handles = [element.find('.ngrs-handle-min'), element.find('.ngrs-handle-max')],
-                        values = [element.find('.ngrs-value-min'), element.find('.ngrs-value-max')],
-                        join = element.find('.ngrs-join'),
+                        handles = [findByClassName(element, 'ngrs-handle-min'), findByClassName(element, 'ngrs-handle-max')],
+                        values = [findByClassName(element, 'ngrs-value-min'), findByClassName(element, 'ngrs-value-max')],
+                        join = findByClassName(element, 'ngrs-join'),
                         pos = 'left',
                         posOpp = 'right',
                         orientation = 0,
@@ -279,7 +283,7 @@
                                 // flag as true
                                 scope.attachHandleValues = true;
                                 // add class to runner
-                                element.find('.ngrs-value-runner').addClass('ngrs-attached-handles');
+                                findByClassName(element, 'ngrs-value-runner').addClass('ngrs-attached-handles');
                             } else {
                                 scope.attachHandleValues = false;
                             }
@@ -487,6 +491,7 @@
                     function handleMove(index) {
 
                         var $handle = handles[index];
+                        var $body = angular.element($document).find('body');
 
                         // on mousedown / touchstart
                         $handle.bind(onEvent + 'X', function(event) {
@@ -504,7 +509,7 @@
                             }
 
                             // stop user accidentally selecting stuff
-                            angular.element('body').bind('selectstart' + eventNamespace, function() {
+                            $body.bind('selectstart' + eventNamespace, function() {
                                 return false;
                             });
 
@@ -520,7 +525,7 @@
                                 $slider.addClass('ngrs-focus ' + handleDownClass);
 
                                 // add touch class for MS styling
-                                angular.element('body').addClass('ngrs-touching');
+                                $body.addClass('ngrs-touching');
 
                                 // listen for mousemove / touchmove document events
                                 $document.bind(moveEvent, function(e) {
@@ -546,9 +551,8 @@
                                     movement = [
                                         (previousClick[0] !== currentClick[0]), (previousClick[1] !== currentClick[1])
                                     ];
-
                                     // propose a movement
-                                    proposal = originalPosition + ((currentClick[orientation] * 100) / (orientation ? $slider.height() : $slider.width()));
+                                    proposal = originalPosition + ((currentClick[orientation] * 100) / (orientation ? $slider[0].offsetHeight : $slider[0].offsetWidth));
 
                                     // normalize so it can't move out of bounds
                                     proposal = restrict(proposal);
@@ -617,7 +621,7 @@
                                     $document.off(moveEvent);
                                     $document.off(offEvent);
 
-                                    angular.element('body').removeClass('ngrs-touching');
+                                    $body.removeClass('ngrs-touching');
 
                                     // cancel down flag
                                     down = false;
