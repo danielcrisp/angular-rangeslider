@@ -145,11 +145,22 @@
             // } else {
             //     angular.element('html').addClass('ngrs-no-touch');
             // }
-
-
-            var findByClassName = function(element, className) {
-                return angular.element(element[0].getElementsByClassName(className));
+            var filter = function(array, method) {
+                var filteredArray = [];
+                for (var i=0; i<array.length; i++) {
+                    if (method(array[i])) {
+                        filteredArray.push(array[i])
+                    }
+                }
+                return filteredArray;
             };
+
+            var findDivByClassName = function(element, className) {
+                return angular.element(filter(element.find('div'), function(el){
+                    return angular.element(el).hasClass(className);
+                }));
+            };
+
 
             return {
                 restrict: 'A',
@@ -174,9 +185,9 @@
                      */
 
                     var $slider = angular.element(element),
-                        handles = [findByClassName(element, 'ngrs-handle-min'), findByClassName(element, 'ngrs-handle-max')],
-                        values = [findByClassName(element, 'ngrs-value-min'), findByClassName(element, 'ngrs-value-max')],
-                        join = findByClassName(element, 'ngrs-join'),
+                        handles = [findDivByClassName(element, 'ngrs-handle-min'), findDivByClassName(element, 'ngrs-handle-max')],
+                        values = [findDivByClassName(element, 'ngrs-value-min'), findDivByClassName(element, 'ngrs-value-max')],
+                        join = findDivByClassName(element, 'ngrs-join'),
                         pos = 'left',
                         posOpp = 'right',
                         orientation = 0,
@@ -283,7 +294,7 @@
                                 // flag as true
                                 scope.attachHandleValues = true;
                                 // add class to runner
-                                findByClassName(element, 'ngrs-value-runner').addClass('ngrs-attached-handles');
+                                findDivByClassName(element, 'ngrs-value-runner').addClass('ngrs-attached-handles');
                             } else {
                                 scope.attachHandleValues = false;
                             }
