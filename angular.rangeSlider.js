@@ -185,6 +185,7 @@
                      */
 
                     var $slider = angular.element(element),
+                        $body = angular.element($document).find('body'),
                         handles = [findDivByClassName(element, 'ngrs-handle-min'), findDivByClassName(element, 'ngrs-handle-max')],
                         values = [findDivByClassName(element, 'ngrs-value-min'), findDivByClassName(element, 'ngrs-value-max')],
                         join = findDivByClassName(element, 'ngrs-join'),
@@ -502,7 +503,6 @@
                     function handleMove(index) {
 
                         var $handle = handles[index];
-                        var $body = angular.element($document).find('body');
 
                         // on mousedown / touchstart
                         $handle.bind(onEvent + 'X', function(event) {
@@ -675,7 +675,7 @@
                         $slider.off(eventNamespace);
 
                         // unbind from body
-                        angular.element('body').off(eventNamespace);
+                        $body.off(eventNamespace);
 
                         // unbind from document
                         $document.off(eventNamespace);
