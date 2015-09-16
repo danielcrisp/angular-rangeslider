@@ -8,7 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/danielcrisp/angular-rangeslider.git"
   },
-  "author": "danielcrisp",
+  "author": "Daniel Crisp",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/danielcrisp/angular-rangeslider/issues"
