@@ -95,9 +95,9 @@ Options are set as attributes on the `<div range-slider>`
 
 `attach-handle-values` - move the value labels in sync with the slider handles when `true`, default: `false`
 
-`on-handle-up` - call a function whenever a handle is released
+`onhandleup` - call a function whenever a handle is released
 
-`on-handle-down` - call a function whenever a handle is grabbed
+`onhandledown` - call a function whenever a handle is grabbed
 
 `getter-setter` - enable getter / setter support for model values - options: `true` | `false`
 
