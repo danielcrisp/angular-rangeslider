@@ -120,6 +120,7 @@
                     modelMax: '=?',
                     onHandleDown: '&', // calls optional function when handle is grabbed
                     onHandleUp: '&', // calls optional function when handle is released
+                    onHandleDrag: '&', //calls optional function when handle is dragged
                     orientation: '@', // options: horizontal | vertical | vertical left | vertical right
                     step: '@',
                     decimalPlaces: '@',
@@ -526,6 +527,10 @@
                                 $document.bind(moveEvent, function(e) {
                                     // prevent default
                                     e.preventDefault();
+
+                                    if (angular.isFunction(scope.onHandleDrag)) {
+                                        scope.onHandleDrag();
+                                    }
 
                                     var currentClick = client(e),
                                         movement,
