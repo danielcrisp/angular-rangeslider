@@ -210,7 +210,7 @@
                         useClass = classNames.join(' ');
 
                         // remove classes before adding
-                        $slider.removeClass('ngrs-vertical ngrs-left ngrs-right ngrs-horizontal');
+                        $slider.removeClass('ngrs-horizontal ngrs-vertical ngrs-left ngrs-right');
 
                         // add class to element
                         $slider.addClass(useClass);
