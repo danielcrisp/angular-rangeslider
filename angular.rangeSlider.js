@@ -169,12 +169,17 @@
                      */
 
                     var $slider = angular.element(element),
+                        uiDefaults = {
+                            pos: 'left',
+                            posOpp: 'right',
+                            orientation: 0
+                        },
                         handles = [element.find('.ngrs-handle-min'), element.find('.ngrs-handle-max')],
                         values = [element.find('.ngrs-value-min'), element.find('.ngrs-value-max')],
                         join = element.find('.ngrs-join'),
-                        pos = 'left',
-                        posOpp = 'right',
-                        orientation = 0,
+                        pos = uiDefaults.pos,
+                        posOpp = uiDefaults.posOpp,
+                        orientation = uiDefaults.orientation,
                         allowedRange = [0, 0],
                         range = 0,
                         down = false;
@@ -209,7 +214,7 @@
 
                         useClass = classNames.join(' ');
 
-                        // remove classes before adding
+                        // remove classes before adding to ensure that there are no left-overs, so changing the orientation on the fly will work.
                         $slider.removeClass('ngrs-horizontal ngrs-vertical ngrs-left ngrs-right');
 
                         // add class to element
@@ -220,7 +225,14 @@
                             pos = 'top';
                             posOpp = 'bottom';
                             orientation = 1;
+                        } else { // back to defaults
+                            pos = uiDefaults.pos;
+                            posOpp = uiDefaults.posOpp;
+                            orientation = uiDefaults.orientation;
                         }
+
+                        setMinMax();
+                        setPinHandle( scopeOptions.pinHandle );
                     });
 
                     attrs.$observe('step', function(val) {
@@ -395,6 +407,13 @@
                                 scope.filteredModelMin = scope.modelMin;
                                 scope.filteredModelMax = scope.modelMax;
                             }
+
+                            // Reset CSS before applying, so changing the orientation on the fly will work.
+                            angular.element( handles[0] ).css( 'top', '' ).css( 'bottom', '' ).css( 'left', '' ).css( 'right', '' );
+                            angular.element( handles[1] ).css( 'top', '' ).css( 'bottom', '' ).css( 'left', '' ).css( 'right', '' );
+                            angular.element( values[0] ).css( 'top', '' ).css( 'bottom', '' ).css( 'left', '' ).css( 'right', '' );
+                            angular.element( values[1] ).css( 'top', '' ).css( 'bottom', '' ).css( 'left', '' ).css( 'right', '' );
+                            angular.element( join ).css( 'top', '' ).css( 'bottom', '' ).css( 'left', '' ).css( 'right', '' );
 
                             // check for no range
                             if (scope.min === scope.max && scope.modelMin == scope.modelMax) {
