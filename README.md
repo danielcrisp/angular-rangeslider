@@ -16,7 +16,9 @@ Looking for collaborators
 
 This directive was written for a project completed way back in 2013. I've not needed to use it since and have no plans (or time) to continue development / maintenance.
 
-If anyone would like to become a collaborator please let me know: [@danielcrisp82](https://twitter.com/danielcrisp82)
+I'm sure there are better rangesliders out there these days.
+
+If anyone would like to become a collaborator please let me know: [@iamdanielcrisp](https://twitter.com/iamdanielcrisp)
 
 Installation
 ------------
