@@ -145,6 +145,21 @@
             // } else {
             //     angular.element('html').addClass('ngrs-no-touch');
             // }
+            var filter = function(array, method) {
+                var filteredArray = [];
+                for (var i=0; i<array.length; i++) {
+                    if (method(array[i])) {
+                        filteredArray.push(array[i])
+                    }
+                }
+                return filteredArray;
+            };
+
+            var findDivByClassName = function(element, className) {
+                return angular.element(filter(element.find('div'), function(el){
+                    return angular.element(el).hasClass(className);
+                }));
+            };
 
 
             return {
@@ -170,9 +185,10 @@
                      */
 
                     var $slider = angular.element(element),
-                        handles = [element.find('.ngrs-handle-min'), element.find('.ngrs-handle-max')],
-                        values = [element.find('.ngrs-value-min'), element.find('.ngrs-value-max')],
-                        join = element.find('.ngrs-join'),
+                        $body = angular.element($document).find('body'),
+                        handles = [findDivByClassName(element, 'ngrs-handle-min'), findDivByClassName(element, 'ngrs-handle-max')],
+                        values = [findDivByClassName(element, 'ngrs-value-min'), findDivByClassName(element, 'ngrs-value-max')],
+                        join = findDivByClassName(element, 'ngrs-join'),
                         pos = 'left',
                         posOpp = 'right',
                         orientation = 0,
@@ -279,7 +295,7 @@
                                 // flag as true
                                 scope.attachHandleValues = true;
                                 // add class to runner
-                                element.find('.ngrs-value-runner').addClass('ngrs-attached-handles');
+                                findDivByClassName(element, 'ngrs-value-runner').addClass('ngrs-attached-handles');
                             } else {
                                 scope.attachHandleValues = false;
                             }
@@ -504,7 +520,7 @@
                             }
 
                             // stop user accidentally selecting stuff
-                            angular.element('body').bind('selectstart' + eventNamespace, function() {
+                            $body.bind('selectstart' + eventNamespace, function() {
                                 return false;
                             });
 
@@ -520,7 +536,7 @@
                                 $slider.addClass('ngrs-focus ' + handleDownClass);
 
                                 // add touch class for MS styling
-                                angular.element('body').addClass('ngrs-touching');
+                                $body.addClass('ngrs-touching');
 
                                 // listen for mousemove / touchmove document events
                                 $document.bind(moveEvent, function(e) {
@@ -546,9 +562,8 @@
                                     movement = [
                                         (previousClick[0] !== currentClick[0]), (previousClick[1] !== currentClick[1])
                                     ];
-
                                     // propose a movement
-                                    proposal = originalPosition + ((currentClick[orientation] * 100) / (orientation ? $slider.height() : $slider.width()));
+                                    proposal = originalPosition + ((currentClick[orientation] * 100) / (orientation ? $slider[0].offsetHeight : $slider[0].offsetWidth));
 
                                     // normalize so it can't move out of bounds
                                     proposal = restrict(proposal);
@@ -617,7 +632,7 @@
                                     $document.off(moveEvent);
                                     $document.off(offEvent);
 
-                                    angular.element('body').removeClass('ngrs-touching');
+                                    $body.removeClass('ngrs-touching');
 
                                     // cancel down flag
                                     down = false;
@@ -660,7 +675,7 @@
                         $slider.off(eventNamespace);
 
                         // unbind from body
-                        angular.element('body').off(eventNamespace);
+                        $body.off(eventNamespace);
 
                         // unbind from document
                         $document.off(eventNamespace);
