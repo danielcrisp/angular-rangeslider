@@ -315,6 +315,10 @@
                         return modelMax();
                     }, setModelMinMax);
 
+                    scope.$watch(function () {
+                        return scope.filterOptions;
+                    }, setModelMinMax);
+
                     /**
                      * HANDLE CHANGES
                      */
