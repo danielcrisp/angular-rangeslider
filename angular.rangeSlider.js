@@ -1,7 +1,7 @@
 /*
  *  Angular RangeSlider Directive
  * 
- *  Version: 0.0.13
+ *  Version: 0.0.14
  *
  *  Author: Daniel Crisp, danielcrisp.com
  *
@@ -105,11 +105,6 @@
                     // normalize so it can't move out of bounds
                     return (value < 0 ? 0 : (value > 100 ? 100 : value));
 
-                },
-
-                isNumber = function(n) {
-                    // console.log(n);
-                    return !isNaN(parseFloat(n)) && isFinite(n);
                 },
 
                 scopeOptions = {
@@ -350,11 +345,11 @@
                         if (angular.isDefined(scope.min) && angular.isDefined(scope.max)) {
 
                             // make sure they are numbers
-                            if (!isNumber(scope.min)) {
+                            if (!jQuery.isNumeric(scope.min)) {
                                 throwError('min must be a number');
                             }
 
-                            if (!isNumber(scope.max)) {
+                            if (!jQuery.isNumeric(scope.max)) {
                                 throwError('max must be a number');
                             }
 
@@ -382,14 +377,14 @@
                         ) {
 
                             // make sure they are numbers
-                            if (!isNumber(modelMin())) {
+                            if (!jQuery.isNumeric(modelMin())) {
                                 if (scope.pinHandle !== 'min') {
                                     throwWarning('modelMin must be a number');
                                 }
                                 modelMin(scope.min);
                             }
 
-                            if (!isNumber(modelMax())) {
+                            if (!jQuery.isNumeric(modelMax())) {
                                 if (scope.pinHandle !== 'max') {
                                     throwWarning('modelMax must be a number');
                                 }
@@ -423,7 +418,7 @@
 
                                 // properly parse string and number args
                                 filterOptions = filterOptions.map(function (arg) {
-                                    if (isNumber(arg)) {
+                                    if (jQuery.isNumeric(arg)) {
                                         return +arg;
                                     } else if ((arg[0] == "\"" && arg[arg.length-1] == "\"") || (arg[0] == "\'" && arg[arg.length-1] == "\'")) {
                                         return arg.slice(1, -1);
